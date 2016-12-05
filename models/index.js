@@ -12,26 +12,13 @@ mongoose.connect(config.db, {
 });
 
 // models
-require('./company');
-require('./asset');
+require('./channel');
 require('./user');
-require('./repair_company');
-require('./repair_current');
-require('./repair_history');
-require('./repair_manager');
-require('./repair_type');
-require('./counters');
-require('./repair_image');
-require('./costcenter');
+require('./parking');
+require('./parking_order');
 
-exports.Asset         = mongoose.model('Asset');
+
+exports.Channel         = mongoose.model('Channel');
 exports.User         = mongoose.model('User');
-exports.Costcenter         = mongoose.model('Costcenter');
-exports.Company         = mongoose.model('Company');
-exports.Counters         = mongoose.model('Counters');
-exports.RepairCompany	= mongoose.model('RepairCompany');
-exports.RepairCurrent	= mongoose.model('RepairCurrent');
-exports.RepairHistory	= mongoose.model('RepairHistory');
-exports.RepairManager	= mongoose.model('RepairManager');
-exports.RepairType		= mongoose.model('RepairType');
-exports.RepairImage		= mongoose.model('RepairImage');
+exports.Parking         = mongoose.model('Parking');
+exports.ParkingOrder         = mongoose.model('ParkingOrder');

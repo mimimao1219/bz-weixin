@@ -7,19 +7,19 @@ var config = {
 
   get mini_assets() { return !this.debug; }, // 是否启用静态文件的合并压缩，详见视图中的Loader
 
-  name: 'repair', // 名字
-  description: '浦发保修管理', // 描述
-  keywords: '保修',
+  name: 'bz_weixin', // 名字
+  description: '奔驰微信服务号', // 描述
+  keywords: '预约停车',
   site_static_host: '', // 静态文件存储域名
   // 设置域名
   host: 'localhost',
 
   // mongodb 配置
-  db: 'mongodb://127.0.0.1/repair_dev',
+  db: 'mongodb://127.0.0.1/bz_weixin',
 
 
 
-  session_secret: 'repair_mimimao', // 签名密钥 务必修改
+  session_secret: 'bz_weixin_mimimao', // 签名密钥 务必修改
   auth_cookie_name: 'nmimimao',
 
   // 程序运行的端口
@@ -38,25 +38,14 @@ var config = {
 
 
 
-  // repair状态
-  repairStatu: [
-    [1, '待分配'],
-    [2, '已分配'],
-    [3, '已终结'],
-    [4, '强制结束'],
-  ],
-  // 分配状态
-  fpStatu: [
-    [0, '公司未响应'],
-    [1, '公司已响应'],
+  // 车位状态
+  state: [
+    [1, '预约成功'],
+    [2, '使用中'],
+    [3, '完成使用'],
+    [4, '取消预约'],
   ],
 
-  // 维修人类型
-  linkType: [
-    ['1', '工程师'],
-    ['2', '维修主管'],
-    ['3', '总经理'],
-  ],
   //微信
   weixin: {
   		appId: 'wxc6459c121f2e6399',
@@ -83,7 +72,7 @@ var config = {
 };
 
 if (process.env.NODE_ENV === 'test') {
-  config.db = 'mongodb://127.0.0.1/repair_test';
+  config.db = 'mongodb://127.0.0.1/bz_weixin_test';
 }
 
 module.exports = config;
