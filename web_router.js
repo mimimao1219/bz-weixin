@@ -9,11 +9,10 @@ var signature = require('./common/signature');
 var router = express.Router();
 var createSignature = signature.getSignature(config.weixin);
 
-router.get('/sign', mycar.sign);
-router.post('/login', mycar.login);
-router.get('/mycar/list', mycar.list);
-//router.post('/', mycar.list);
-router.get('/park/create', park.create);
+router.get('/sign', auth.sign);
+router.post('/login', auth.login);
+router.get('/mycar/list',auth.userRequired, mycar.list);
+router.get('/park/create',auth.userRequired, park.create);
 //模拟用户login
 //router.get('/',repair.userlist);
 //router.get('/',  auth.authUserTwo,auth.authUserOne, auth.authUserThree, repair.list);

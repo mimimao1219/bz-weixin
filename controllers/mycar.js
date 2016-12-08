@@ -3,8 +3,6 @@ var validator = require('validator');
 //var at           = require('../common/at');
 var UserModel = require('../models').User;
 var TokenModel = require('../models').Token;
-
-
 var EventProxy   = require('eventproxy');
 var tools        = require('../common/tools');
 var store        = require('../common/store');
@@ -32,68 +30,18 @@ var fs = require('fs');
 // });
 
 
-
-exports.sign = function (req, res, next) {
-	req.session.yzm = '4561';
-	var openid = req.query.openid;
-	   
-	var err = 0;
-	err = req.query.err;
-	res.render('sign', { openid: openid, err: err });
-	
-}
-exports.login = function (req, res, next) {
-	var openid = validator.trim(req.body.openid);
-	var mob = validator.trim(req.body.mob);
-	var userid = validator.trim(req.body.userid);
-	//var yzm = validator.trim(req.body.yzm);
-	var usertype = validator.trim(req.body.usertype);
-	if (usertype == '1') {
-		//根据工号获得员工信息
-		RepairCurrentModel.findOne({ signid: userid }, null, function (err, repaircurrent) {
-			if (repaircurrent) {
-				var myUser = new UserModel();
-				myUser.OpenId = openid;
-				myUser.NickName = repaircurrent.repairname;
-				//myUser.UserPhotoUrl= user.UserPhotoUrl;
-				myUser.Pid = config.weixingzh;
-				myUser.UserId = repaircurrent.signid;
-				myUser.UserName = repaircurrent.repairname;
-				myUser.OrgName = repaircurrent.costcentername;
-				//myUser.FixedPhone= Company.FixedPhone;
-				myUser.CellPhone = repaircurrent.repairtel;
-				myUser.Email = repaircurrent.repairmail;
-				myUser.usertype = usertype;
-				var ep = EventProxy.create(['manager'], function (manager) {
-					if (manager) {
-						myUser.usertype = '2';
-					}
-					req.session.user = myUser;
-					myUser.save();
-					res.redirect('/');
-				});
-				//判断是否管理用户
-				RepairManagerModel.findOne({ managerid: userid }, null, ep.done('manager'));
-
-			} else {
-				res.redirect('/sign?openid=' + openid + '&err=1');
-			}
-		});
-    }
-
-
-}
 //车辆列表 
 exports.list = function (req, res, next) {	
-    var code = req.param('code')//我们要的code
-	client.getAccessToken(code, function (err, result) {
-       var accessToken = result.data.access_token;
-       var openid = result.data.openid;
-       console.log(openid);
+    // var code = req.param('code')//我们要的code
+	// client.getAccessToken(code, function (err, result) {
+    //    var accessToken = result.data.access_token;
+    //    var openid = result.data.openid;
+    //    console.log(openid);
+	var openid= req.session.user.open_id;
 	   res.render('mycar/list', {
      		 mycar: '一连串' +openid,
     	});
-    });
+//});
 
 
 

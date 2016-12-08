@@ -6,11 +6,66 @@ var CompanyModel = require('../models').Company;
 var RepairCompanyModel = require('../models').RepairCompany;
 var request = require('request-json');
 var tools = require('../common/tools')
-//var Message    = require('../proxy').Message;
 var config = require('../config');
 var eventproxy = require('eventproxy');
-//var UserProxy  = require('../proxy').User;
 var WechatAPI = require('wechat-api');
+//var validator = require('validator');
+var client        = require('../common/tools').oauthClient;
+
+/**
+ * 检查是否绑定手机号。
+ */
+exports.userRequired = function (req, res, next) {
+	if (req.session.user&&req.session.user.tel) {
+       next();
+	}else{
+	var code = req.param('code')//我们要的code
+    client.getAccessToken(code, function (err, result) {
+       //var accessToken = result.data.access_token;
+       var openid = result.data.openid;
+	   UserModel.findOne({ open_id: openid }, null, function (err, user) {
+			if (user&&user.tel) {
+			   req.session.user=user;
+        	   next();
+            }else{
+				req.session.user=user;
+				return	res.redirect('/sign?r_url='+req.originalUrl);
+			}
+		});
+    });
+  }
+	//next();
+
+};
+
+exports.sign = function (req, res, next) {
+	req.session.yzm = '4561';
+	var openid = req.query.openid||req.session.user.open_id;
+	var r_url = req.query.r_url||'/mycar/list'  ;
+	var err = 0;
+	err = req.query.err;
+	res.render('sign', { openid: openid,r_url:r_url ,err: err });
+	
+}
+exports.login = function (req, res, next) {
+	var openid = req.body.openid;
+	var tel = req.body.tel;
+	var r_url = req.body.r_url;
+	//需要验证码校验
+
+	UserModel.findOne({ open_id: openid }, null, function (err, user) {		
+		user.tel=tel;
+		//增加获取车辆信息接口
+
+		
+		req.session.user=user;
+		user.save();
+		
+        return	res.redirect(r_url);
+       
+		});
+
+}
 
 
 
@@ -37,134 +92,123 @@ exports.sendTemplateOne = function (repairCurrent, usertype) {
 		}
 	});
 };
-/**
- * 需要登录
- */
-exports.userRequired = function (req, res, next) {
-	if (!req.session || !req.session.user) {
-		//return res.status(403).send('forbidden!');
-	 return	res.redirect('/list');
-	}
-
-	next();
-
-};
-
-// 验证用户第一步
-exports.authUserOne = function (req, res, next) {
 
 
-	if (!req.session || !req.session.user) {
-		var openid = req.query.open_id;
+// // 验证用户第一步
+// exports.authUserOne = function (req, res, next) {
 
-		UserModel.findOne({ OpenId: openid }, function (e, user) {
-			if (user) {
-				req.session.user = user;
-				return next();
-			} else {
-				return next();
-			}
-		});
-	} else {
-		return next();
-	}
-};
-//验证用户第二步
-exports.authUserTwo = function (req, res, next) {
 
-	if (!req.session || !req.session.user) {
-		var openid = req.query.open_id;
-		getUserInfo(openid, config, function (e, user1) {
-			console.log(user1);
-			if (user1) {
-				var user = JSON.parse(user1);
-				var myUser = new UserModel();
-				myUser.OpenId = openid;
-				myUser.NickName = user.NickName;
-				myUser.UserPhotoUrl = user.UserPhotoUrl;
-				myUser.Pid = user.Pid;
-				myUser.UserId = user.UserId;
-				myUser.UserName = user.UserName;
-				myUser.OrgName = user.OrgName;
-				myUser.FixedPhone = user.FixedPhone;
-				myUser.CellPhone = user.CellPhone;
-				myUser.Email = user.Email;
-				RepairManagerModel.findOne({ managerid: user.UserId }, function (e, manager) {
-					if (manager) {
-						myUser.usertype = '2';
-						req.session.user = myUser;
-						myUser.save();
-						return next();
-					} else {
-						myUser.usertype = '1';
-						req.session.user = myUser;
-						myUser.save();
-						return next();
-					}
-				});
+// 	if (!req.session || !req.session.user) {
+// 		var openid = req.query.open_id;
 
-			} else {
-				return next();
-			}
-		});
-	} else {
-		return next();
-	}
-};
-//验证用户第三步
-exports.authUserThree = function (req, res, next) {
+// 		UserModel.findOne({ OpenId: openid }, function (e, user) {
+// 			if (user) {
+// 				req.session.user = user;
+// 				return next();
+// 			} else {
+// 				return next();
+// 			}
+// 		});
+// 	} else {
+// 		return next();
+// 	}
+// };
+// //验证用户第二步
+// exports.authUserTwo = function (req, res, next) {
 
-	if (!req.session || !req.session.user) {
-		res.redirect('/sign?openid=' + req.query.open_id);
-	} else {
-		return next();
-	}
-};
+// 	if (!req.session || !req.session.user) {
+// 		var openid = req.query.open_id;
+// 		getUserInfo(openid, config, function (e, user1) {
+// 			console.log(user1);
+// 			if (user1) {
+// 				var user = JSON.parse(user1);
+// 				var myUser = new UserModel();
+// 				myUser.OpenId = openid;
+// 				myUser.NickName = user.NickName;
+// 				myUser.UserPhotoUrl = user.UserPhotoUrl;
+// 				myUser.Pid = user.Pid;
+// 				myUser.UserId = user.UserId;
+// 				myUser.UserName = user.UserName;
+// 				myUser.OrgName = user.OrgName;
+// 				myUser.FixedPhone = user.FixedPhone;
+// 				myUser.CellPhone = user.CellPhone;
+// 				myUser.Email = user.Email;
+// 				RepairManagerModel.findOne({ managerid: user.UserId }, function (e, manager) {
+// 					if (manager) {
+// 						myUser.usertype = '2';
+// 						req.session.user = myUser;
+// 						myUser.save();
+// 						return next();
+// 					} else {
+// 						myUser.usertype = '1';
+// 						req.session.user = myUser;
+// 						myUser.save();
+// 						return next();
+// 					}
+// 				});
 
-function getIdentify(openid, config, cb) {
-    var url = 'WChart/Identify?open_id=' + openid + '&pid=' + config.weixingzh;
-    var client = request.createClient('http://www.spdbcloud.com/');
-    client.get(url, function (error, response, body) {
-        if (error) {
-			cb('getIdentify error', error);
-        }
-        else {
-            try {
-                var flag = body.flag;
-                console.log(body);
-                cb(null, flag);
-            }
-            catch (e) {
-				cb('getIdentify error', error);
-            }
-        }
-    });
-}
+// 			} else {
+// 				return next();
+// 			}
+// 		});
+// 	} else {
+// 		return next();
+// 	}
+// };
+// //验证用户第三步
+// exports.authUserThree = function (req, res, next) {
 
-function sendTemplate(openid, url, data, config, cb) {
+// 	if (!req.session || !req.session.user) {
+// 		res.redirect('/sign?openid=' + req.query.open_id);
+// 	} else {
+// 		return next();
+// 	}
+// };
 
-	var data1 = '{"Token":"' + config.pftoken + '","authflag":"' + config.authflag + '","touser":"' + openid + '","template_id":"' + 1 + '","url":"' + url + '","data":"' + data + '"}';
+// function getIdentify(openid, config, cb) {
+//     var url = 'WChart/Identify?open_id=' + openid + '&pid=' + config.weixingzh;
+//     var client = request.createClient('http://www.spdbcloud.com/');
+//     client.get(url, function (error, response, body) {
+//         if (error) {
+// 			cb('getIdentify error', error);
+//         }
+//         else {
+//             try {
+//                 var flag = body.flag;
+//                 console.log(body);
+//                 cb(null, flag);
+//             }
+//             catch (e) {
+// 				cb('getIdentify error', error);
+//             }
+//         }
+//     });
+// }
 
-	var queryStr = tools.myCipheriv(data1, config);
-	var client = request.createClient('http://www.spdbcloud.com/');
-	var data = {
-		"Uid": 1,
-		"QueryStr": queryStr,
-		"ReqCode": 0
-    };
-	client.post('api/WChartMsgTemple', data, function (error, response, body) {
-		if (!error && response.statusCode == 200) {
-			if (body.ResultData) {
-				cb(null, tools.myDecipheriv(body.ResultData, config));
-			} else {
-				cb(null, null);
-			}
-		} else {
-			cb(null, null);
-		}
+// function sendTemplate(openid, url, data, config, cb) {
 
-	});
-}
+// 	var data1 = '{"Token":"' + config.pftoken + '","authflag":"' + config.authflag + '","touser":"' + openid + '","template_id":"' + 1 + '","url":"' + url + '","data":"' + data + '"}';
+
+// 	var queryStr = tools.myCipheriv(data1, config);
+// 	var client = request.createClient('http://www.spdbcloud.com/');
+// 	var data = {
+// 		"Uid": 1,
+// 		"QueryStr": queryStr,
+// 		"ReqCode": 0
+//     };
+// 	client.post('api/WChartMsgTemple', data, function (error, response, body) {
+// 		if (!error && response.statusCode == 200) {
+// 			if (body.ResultData) {
+// 				cb(null, tools.myDecipheriv(body.ResultData, config));
+// 			} else {
+// 				cb(null, null);
+// 			}
+// 		} else {
+// 			cb(null, null);
+// 		}
+
+// 	});
+// }
 
 function getUserInfo(openid, config, cb) {
     var data1 = '{"Token":"' + config.pftoken + '","OpenID":"' + openid + '","Pid":"' + config.weixingzh + '"}';
@@ -219,5 +263,5 @@ function getAssets(AssetsNo, config, cb) {
 }
 exports.getAssets = getAssets;
 exports.getUserInfo = getUserInfo;
-exports.getIdentify = getIdentify;
-exports.sendTemplate = sendTemplate;
+//exports.getIdentify = getIdentify;
+//exports.sendTemplate = sendTemplate;

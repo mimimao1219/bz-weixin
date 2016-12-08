@@ -5,7 +5,7 @@ var TokenModel = require('../models').Token;
 var config       = require('../config');
 
 moment.locale('zh-cn'); // 使用中文
-
+//微信页面授权获取用户openid
 var OAuth = require('wechat-oauth');
 var OAuthClient = new OAuth(config.weixin.appId, config.weixin.appSecret, function (openid, callback) {
   // 传入一个根据openid获取对应的全局token的方法

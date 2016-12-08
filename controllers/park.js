@@ -20,15 +20,16 @@ var fs = require('fs');
 //车辆列表 
 exports.create = function (req, res, next) {	
 
-    var code = req.param('code')//我们要的code
-    client.getAccessToken(code, function (err, result) {
-       var accessToken = result.data.access_token;
-       var openid = result.data.openid;
-       console.log(openid);
-	   res.render('mycar/list', {
-     		 mycar: '一连串xxx' +openid,
+    // var code = req.param('code')//我们要的code
+    // client.getAccessToken(code, function (err, result) {
+    //    var accessToken = result.data.access_token;
+    //    var openid = result.data.openid;
+    //    console.log(openid);
+    var openid= req.session.user.open_id;
+	  res.render('mycar/list', {
+     		 mycar: '一连串xxx' +openid
     	});
-    });
+    // });
 
 //  var userid= req.query.userid;
 //  if (userid===req.session.user.UserId&&req.session.user.usertype==='3'){
