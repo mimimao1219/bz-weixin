@@ -46,6 +46,13 @@ var config = {
     [4, '取消预约'],
   ],
 
+    //阿里大于短信
+    tosms:{
+      appkey:'23559731',
+      appsecret:'858ac6759270ffe10c26787e97f8bfe8',
+      sms_free_sign_name:'咪咪猫',
+      sms_template_code:'SMS_33705130'
+    },
   //微信
   weixin: {
   		appId: 'wxc6459c121f2e6399',

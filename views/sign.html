@@ -44,39 +44,20 @@
 <body>
 	<header class="mui-bar mui-bar-nav">
 
-		<h1 class="mui-title">绑定手机登陆</h1>
+		<h1 class="mui-title">绑定手机</h1>
 	</header>
 	<div class="mui-content">
 		<form class="mui-input-group" action='/login' method='post'>
 			<input type='hidden' name='_csrf' value='<%= csrf %>'>
 			<input type='hidden' id='openid' name='openid' value='<%=openid %>'>
 			<input type='hidden' id='tid' name='tid' value=''>
-			<div class="mui-radio" style="  border-bottom: 1px solid #E1E2E3;  height: 60px;     padding: 15px 15px; margin-bottom: 10px;">
-<!--
-				<div style=" float: left;padding-right: 20px; ">
-					<input onclick="sel(1)" checked name="usertype" type="radio" value='1' style="left: 0px; position: static;">
-					<label style="width: 150px; display: inline; padding-right: 0px;">员工</label>
-				</div>-->
-				<div style=" float: left; padding-right: 20px;">
-					<input onclick="sel(2)" checked name="usertype" type="radio" value='3' style="left: 0px; position: static;">
-					<label style="width: 150px; display: inline; padding-right: 0px;">维修公司</label>
-				</div>
-				<div style="float: left;">
-					<input onclick="sel(2)" name="usertype" type="radio" value='4' style="left: 0px; position: static;">
-					<label style="width: 150px; display: inline; padding-right: 0px;">维修人员</label>
-				</div>
 
-			</div>
 			<div class="mui-input-row" id='select2' >
 				<label>手机号：</label>
 				<input id='mob' name='mob' type="text" class="mui-input-clear mui-input" placeholder="请输入手机号">
 			</div>
 <!--
-			<div class="mui-input-row" id='select1'>
 
-				<label>工号：</label>
-				<input id='userid' name='userid' type="text" class="mui-input-clear mui-input" placeholder="请输入工号">
-			</div>
 				<div class="mui-input-row">
 					<label>验证码：</label>
 					<input id='yzm' name='yzm' type="text" class="mui-input-clear mui-input" placeholder="请输入验证码">
@@ -88,13 +69,13 @@
 		</form>
 		<% if (err==1) { %>
 			<div class="mui-content-padded oauth-area">
-				<span>请填写正确的手机号或工号！如无法登入请联系您的上一级。</span>
+				<span>请填写正确的手机号！。</span>
 			</div>
 			<% } %>
 
 	</div>
 </body>
-<script src="../public/javascripts/zepto.min.js"></script>
+<!--<script src="../public/javascripts/zepto.min.js"></script>
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<script type="text/javascript">
 		// 使用 jq 动态加载 微信配置
@@ -136,19 +117,8 @@
 		opened.opener = null;
 		opened.close();
 	}
-</script>
-<script type="text/javascript">
-	function sel(cs) {
-		if (cs == 1) {
-			//document.getElementById('select1').style.display = "inline";
-			//document.getElementById('select2').style.display = "none";
-		}
-		if (cs == 2) {
-			//document.getElementById('select1').style.display = "none";
-			//document.getElementById('select2').style.display = "inline";
-		}
-	};
-</script>
+</script>-->
+
 
 
 </html>

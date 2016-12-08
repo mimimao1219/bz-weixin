@@ -1,10 +1,16 @@
 var models       = require('../models');
 var eventproxy   = require('eventproxy');
+
 var Message      = models.Message;
 var User         = require('../proxy').User;
 var push         = require('../common/push');
 var messageProxy = require('../proxy/message');
 var _            = require('lodash');
+var config       = require('../config');
+
+
+
+
 
 exports.sendReplyMessage = function (master_id, author_id, topic_id, reply_id, callback) {
   callback = callback || _.noop;

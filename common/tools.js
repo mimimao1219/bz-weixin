@@ -1,10 +1,31 @@
 var bcrypt = require('bcryptjs');
 var moment = require('moment');
 var CryptoJS = require("crypto-js");
+var TokenModel = require('../models').Token;
+var config       = require('../config');
 
 moment.locale('zh-cn'); // 使用中文
 
+var OAuth = require('wechat-oauth');
+var OAuthClient = new OAuth(config.weixin.appId, config.weixin.appSecret, function (openid, callback) {
+  // 传入一个根据openid获取对应的全局token的方法
+  // 在getUser时会通过该方法来获取token
+  TokenModel.getToken(openid, callback);
+}, function (openid, token, callback) {
+  // 持久化时请注意，每个openid都对应一个唯一的token!
+  TokenModel.setToken(openid, token, callback);
+});
+exports.oauthClient = OAuthClient;
 
+
+//发短息
+TopClient = require( '../common/topClient' ).TopClient;
+var topclient = new TopClient({
+     'appkey' : config.tosms.appkey ,
+     'appsecret' : config.tosms.appsecret ,
+     'REST_URL' : ' http://gw.api.taobao.com/router/rest '
+});
+exports.topclient = topclient;
 
 
 //加密

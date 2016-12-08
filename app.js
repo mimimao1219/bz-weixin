@@ -13,7 +13,7 @@ var express = require('express');
 var session = require('express-session');
 var schedule = require("node-schedule");
 require('./middlewares/mongoose_log'); // 打印 mongodb 查询日志
-require('./models');
+//require('./models');
 var webRouter = require('./web_router');
 var auth = require('./middlewares/auth');
 var errorPageMiddleware = require('./middlewares/error_page');
@@ -31,6 +31,8 @@ var renderMiddleware = require('./middlewares/render');
 var logger = require('./common/logger');
 var helmet = require('helmet');
 var bytes = require('bytes')
+var webot = require('weixin-robot');
+var UserModel = require('./models').User;
 
 // 静态文件目录
 var staticDir = path.join(__dirname, 'public');
@@ -70,6 +72,7 @@ if (config.debug) {
 if (config.debug) {
 	app.use(LoaderConnect.less(__dirname)); // 测试环境用，编译 .less on the fly
 }
+app.use( express.static(staticDir));
 app.use('/public', express.static(staticDir));
 app.use('/agent', proxyMiddleware.proxy);
 
@@ -114,9 +117,70 @@ app.use(busboy({
 
 // routes
 //app.use('/api/v1', cors(), apiRouterV1);   //api 需要支持跨域访问才行的。所以加上cors中间件了。
-
-
 app.use('/', webRouter);
+//对发来的消息预处理
+webot.beforeReply(function load_user(info, next) {
+  UserModel.findOne({ open_id: info.uid }, null, function (err, user) {
+			if (user) {
+        info.user = user;
+        next();
+      }
+		});
+    console.log("我来也1"+info.param.eventKey);
+  next();
+});
+//关注
+webot.set('subscribe', {
+  pattern: function(info) {
+    return info.is('event') && info.param.event === 'subscribe';
+  },
+  handler: function(info) {
+      UserModel.findOne({ open_id: info.uid }, null, function (err, user) {
+			if (user) {
+        info.user = user;
+			} else {
+        var myUser = new UserModel();
+        myUser.open_id=info.uid;
+        myUser.channel=info.param.eventKey;
+        myUser.create_at=info.createTime;
+        myUser.save();
+			}
+		});
+    //console.log(info.param.eventKey);
+    info.reply = {
+        title: '欢迎关注订阅奔驰微信服务号',
+        url: 'http://webot-bz.ittun.com/sign?openid='+info.uid,
+        picUrl: 'http://webot-bz.ittun.com/public/img/eclass.jpg',
+        description: '为了更好的服务您请绑定手机号',
+  }
+    return ;
+  }
+});
+//取消关注
+webot.set('unsubscribe', {
+  pattern: function(info) {
+    return info.is('event') && info.param.event === 'unsubscribe';
+  },
+  handler: function(info) {
+    //console.log(info.uid);
+    UserModel.remove({ open_id: info.uid} ,function(err,result){
+          if(err){
+            console.log(err);
+          }else{
+            console.log("delete"+info.uid);
+          }
+    });
+  }
+});
+
+
+// 接管消息请求
+webot.watch(app, { token: 'mimimao' });
+
+
+
+
+
 
 // error handler
 if (config.debug) {

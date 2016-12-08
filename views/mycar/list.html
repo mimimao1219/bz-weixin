@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>维修管理</title>
+
+	<link rel="stylesheet" href="../public/stylesheets/mui.min.css" />
+	<style>
+		.mui-control-content {
+			background-color: #EFEFF4;
+			min-height: 450px;
+		}
+		.mui-control-content .mui-loading {
+			margin-top: 50px;
+		}
+		#topPopover {position: fixed;}
+		.mui-popover {height: 167px;}
+		.mui-table-view-cell a:active{background:#efeff4; display: block; color: #007aff;}
+		.mui-popover .mui-scroll-wrapper {margin: 0px 0; }
+		.mui-table-view-cell:after{right: 15px;}
+	</style>
+     
+</head>
+<body>
+	
+	<div class="mui-content">
+		<ul class="mui-table-view" style="margin-top: 0px;">
+			<li class="mui-table-view-cell mui-media" >
+				
+			</li>
+		</ul>
+		
+		<div id="slider" class="mui-slider"style="margin-top: 0px;position: fixed;">
+			 	<%= mycar %>		
+			
+			</div>
+
+	</div>
+	
+<script src="../public/javascripts/mui.min.js"></script>
+<script src="../public/javascripts/zepto.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+	// // 使用 jq 动态加载 微信配置
+	// $.ajax({
+	// 	url: '/getsignature', // 此处url请求地址需要替换成你自己实际项目中服务器数字签名服务地址		        
+	// 	type: 'post',
+	// 	data: {
+	// 		url: location.href.split('#')[0] // 将当前URL地址上传至服务器用于产生数字签名
+	// 	},
+	// 	success: function(r) {
+	// 		// 开始配置微信JS-SDK
+	// 		wx.config({
+	// 			debug: false,
+	// 			appId: r.appId,
+	// 			timestamp: r.timestamp,
+	// 			nonceStr: r.nonceStr,
+	// 			signature: r.signature,
+	// 			jsApiList: ['checkJsApi', 'chooseImage', 'scanQRCode', 'previewImage', 'uploadImage', 'downloadImage', 'hideOptionMenu']
+	// 		});
+	// 	},
+	// 	error: function(xhr, type) {
+	// 		alert('微信js-sdk认证失败!')
+	// 	}
+	// });
+	// //通过ready接口处理成功验证
+	// wx.ready(function() {
+	// 	wx.hideOptionMenu();
+	// });
+</script>
+<script type="text/javascript">
+	// 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
+	var useragent = navigator.userAgent;
+	if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+		// 这里警告框会阻塞当前页面继续加载
+		alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+		// 以下代码是用javascript强行关闭当前页面
+		var opened = window.open('about:blank', '_self');
+		opened.opener = null;
+		opened.close();
+	}
+</script>
+		
+</body>
+</html>

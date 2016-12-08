@@ -16,9 +16,11 @@ require('./channel');
 require('./user');
 require('./parking');
 require('./parking_order');
+require('./token');
 
 
 exports.Channel         = mongoose.model('Channel');
 exports.User         = mongoose.model('User');
 exports.Parking         = mongoose.model('Parking');
 exports.ParkingOrder         = mongoose.model('ParkingOrder');
+exports.Token         = mongoose.model('Token');

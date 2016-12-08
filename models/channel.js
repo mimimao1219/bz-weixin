@@ -8,7 +8,7 @@ var ChannelSchema = new Schema({
 	addr: { type: String },  //地址
 	tel: { type: String }, //联系电话
 	linkman: { type: String },//联系人
-	create_at: { type: date },//创建日期
+	create_at: { type: Date },//创建日期
 });
 
 
