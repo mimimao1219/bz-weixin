@@ -29,7 +29,17 @@ var fs = require('fs');
 //      else console.log(error);
 // });
 
-
+exports.bzshow = function (req, res, next) {	
+    // var code = req.param('code')//我们要的code
+	// client.getAccessToken(code, function (err, result) {
+    //    var accessToken = result.data.access_token;
+    //    var openid = result.data.openid;
+    //    console.log(openid);
+	//var openid= req.session.user.open_id;
+	   res.render('mycar/list', {
+     		 mycar: '一连串',
+    	});
+}
 //车辆列表 
 exports.list = function (req, res, next) {	
     // var code = req.param('code')//我们要的code

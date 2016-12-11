@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>预订车位</title>
+    <link href="../public/stylesheets/mui.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+	<form class="mui-input-group" action='/create' method='post'>
+	<input type='hidden' name='_csrf' value='<%= csrf %>'>
+	<input type='hidden' id='open_id' name='open_id' value='<%=ParkingOrder.open_id %>'>
+	<input type='hidden' id='tel' name='tel' value='<%=ParkingOrder.tel %>'>
+	<input type='hidden' id='pid' name='pid' value='<%=ParkingOrder.pid %>'>
+	<input type='hidden' id='addr' name='addr' value='<%=ParkingOrder.addr %>'>
+
+	<div class="mui-content"style="margin-top:2px;">
+		<label style="margin-left:10px;">车主姓名</label>
+		<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">
+			<input id='username' name='username' type="text" value='<%=ParkingOrder.username %>' class="mui-input-clear" placeholder="车主姓名">
+		</div>			
+		<label style="margin-left:10px;">车牌号码</label>
+		<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">
+			<input id='plate_number' name='plate_number' type="text" value='<%=ParkingOrder.plate_number %>' class="mui-input-clear" placeholder="车牌号码">
+		</div>	
+		<label style="margin-left:10px;">预订车位</label>
+		<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">
+			<input id='name' name='name' type="text" value='<%=ParkingOrder.name %>' class="mui-input-clear" placeholder="车辆位置">
+		</div>
+		<label style="margin-left:10px;">预订时间：</label>
+		  <%  if (ParkingOrder.reserve_at){ -%>
+				<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">
+			     <input id='reserve_at' name='reserve_at' type="text" value='<%=ParkingOrder.reserve_at %>' class="mui-input-clear" >
+		        </div>
+				<div class="mui-content-padded">
+		        	<button type="button" class="mui-btn mui-btn-primary mui-btn-block"style="font-size: 20px;padding:5px 10px;height:45px;">取消预约</button>
+		   		 </div>
+		 <% 	}else{  -%>
+				<div class="mui-card" style="margin-top:10px;">
+				<% for(var i = ParkingOrder.hour; i <= ParkingOrder.hour+4; i++) { %>
+					<div class="mui-input-row mui-radio mui-left">
+						<label><%= i %>点
+						<input name="radio1" value=<%= i %> type="radio" ></label>
+					</div>
+					 <% } %>
+					</div>
+			<div class="mui-content-padded">
+		        <button type="button" class="mui-btn mui-btn-primary mui-btn-block"style="font-size: 20px;padding:5px 10px;height:45px;">确认预约</button>
+		    </div>
+		<% 	} -%>
+			
+		</div>
+	</form>
+	</body>
+</html>

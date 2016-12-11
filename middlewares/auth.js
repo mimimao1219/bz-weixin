@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 
 var UserModel = require('../models').User;
-var RepairManagerModel = require('../models').RepairManager;
-var CompanyModel = require('../models').Company;
-var RepairCompanyModel = require('../models').RepairCompany;
+// var RepairManagerModel = require('../models').RepairManager;
+// var CompanyModel = require('../models').Company;
+// var RepairCompanyModel = require('../models').RepairCompany;
 var request = require('request-json');
 var tools = require('../common/tools')
 var config = require('../config');
@@ -11,17 +11,20 @@ var eventproxy = require('eventproxy');
 var WechatAPI = require('wechat-api');
 //var validator = require('validator');
 var client        = require('../common/tools').oauthClient;
-
+var TokenModel = require('../models').Token;
 /**
  * 检查是否绑定手机号。
  */
 exports.userRequired = function (req, res, next) {
+	console.log(req.session);
 	if (req.session.user&&req.session.user.tel) {
        next();
 	}else{
 	var code = req.param('code')//我们要的code
     client.getAccessToken(code, function (err, result) {
        //var accessToken = result.data.access_token;
+	   if (err) return	res.redirect('/bzshow');
+	   console.log(result);
        var openid = result.data.openid;
 	   UserModel.findOne({ open_id: openid }, null, function (err, user) {
 			if (user&&user.tel) {
@@ -52,7 +55,7 @@ exports.login = function (req, res, next) {
 	var tel = req.body.tel;
 	var r_url = req.body.r_url;
 	//需要验证码校验
-
+	
 	UserModel.findOne({ open_id: openid }, null, function (err, user) {		
 		user.tel=tel;
 		//增加获取车辆信息接口
@@ -60,7 +63,6 @@ exports.login = function (req, res, next) {
 		
 		req.session.user=user;
 		user.save();
-		
         return	res.redirect(r_url);
        
 		});
@@ -70,28 +72,28 @@ exports.login = function (req, res, next) {
 
 
 
-//微信推送
-exports.sendTemplateOne = function (repairCurrent, usertype) {
-	//var api = new WechatAPI(config.weixin.appId, config.weixin.appSecret);
-	var url = 'http://' + config.host + '/' + repairCurrent._id + '/edit?usertype=' + usertype;
-	var data = {
-		"first": { "value": "您好，您有新的待办任务！", "color": "#174177" },
-		"keyword1": { "value": repairCurrent.repairContent, "color": "#173177" },
-		"keyword2": { "value": "待办", "color": "#172177" },
-		"remark": { "value": "要求完成时间:" + repairCurrent.LstWarn_at_ago + "\n请抽空处理谢谢。", "color": "#171177" }
-	};
-	var userid = repairCurrent.signid;
-	if (usertype === 2) { userid = repairCurrent.managerid; };
-	if (usertype === 3) { userid = repairCurrent.companyid; };
-	if (usertype === 4) { userid = repairCurrent.comtact_mob; };
-	UserModel.findOne({ UserId: userid }, function (e, user) {
-		if (user) {
-			// console.log(usertype+'---'+userid);
-			// api.sendTemplate(user.OpenId, config.weixin.templateId, url, data, function (err, result) { });
-			sendTemplate(user.OpenId, url, JSON.stringify(data), config, function (err, result) { });
-		}
-	});
-};
+// //微信推送
+// exports.sendTemplateOne = function (repairCurrent, usertype) {
+// 	//var api = new WechatAPI(config.weixin.appId, config.weixin.appSecret);
+// 	var url = 'http://' + config.host + '/' + repairCurrent._id + '/edit?usertype=' + usertype;
+// 	var data = {
+// 		"first": { "value": "您好，您有新的待办任务！", "color": "#174177" },
+// 		"keyword1": { "value": repairCurrent.repairContent, "color": "#173177" },
+// 		"keyword2": { "value": "待办", "color": "#172177" },
+// 		"remark": { "value": "要求完成时间:" + repairCurrent.LstWarn_at_ago + "\n请抽空处理谢谢。", "color": "#171177" }
+// 	};
+// 	var userid = repairCurrent.signid;
+// 	if (usertype === 2) { userid = repairCurrent.managerid; };
+// 	if (usertype === 3) { userid = repairCurrent.companyid; };
+// 	if (usertype === 4) { userid = repairCurrent.comtact_mob; };
+// 	UserModel.findOne({ UserId: userid }, function (e, user) {
+// 		if (user) {
+// 			// console.log(usertype+'---'+userid);
+// 			// api.sendTemplate(user.OpenId, config.weixin.templateId, url, data, function (err, result) { });
+// 			sendTemplate(user.OpenId, url, JSON.stringify(data), config, function (err, result) { });
+// 		}
+// 	});
+// };
 
 
 // // 验证用户第一步

@@ -14,22 +14,41 @@ var wxs       = require('../common/signature');
 var moment = require('moment');
 var http = require('http');
 var fs = require('fs');
+var ParkingModel = require('../models').Parking;
+var ParkingOrderModel = require('../models').ParkingOrder;
 
 
 
-//车辆列表 
+//预约车位 
 exports.create = function (req, res, next) {	
+    //res.locals.open_id =req.session.user.open_id;
+    //console.log(req.session.user);
+    ParkingOrderModel.findOne({ tel: req.session.user.tel ,state: { $in: [1, 2] }}, function (err, ParkingOrder) {
+        if (ParkingOrder){
+             res.render('park/new', {
+     		 ParkingOrder: ParkingOrder
+    	   });
+        }else{
+            ParkingOrder = new ParkingOrderModel();
+            ParkingOrder.open_id=req.session.user.open_id;
+            ParkingOrder.username=req.session.user.username;
+            ParkingOrder.tel=req.session.user.tel
+            ParkingOrder.plate_number=req.session.user.plate_number
+            
+            var ep = EventProxy.create(['Parking'], function (Parking) {
+                ParkingOrder.pid=Parking.pid;
+                ParkingOrder.name=Parking.name;
+                ParkingOrder.addr=Parking.addr;
+                ParkingOrder.hour=moment().hour();
+                res.render('park/new', {
+                    ParkingOrder: ParkingOrder
+                    });
+                });
+           //查询停车场
+           ParkingModel.findOne({}, null, ep.done('Parking'));
+        }
 
-    // var code = req.param('code')//我们要的code
-    // client.getAccessToken(code, function (err, result) {
-    //    var accessToken = result.data.access_token;
-    //    var openid = result.data.openid;
-    //    console.log(openid);
-    var openid= req.session.user.open_id;
-	  res.render('mycar/list', {
-     		 mycar: '一连串xxx' +openid
-    	});
-    // });
+    });
 
 //  var userid= req.query.userid;
 //  if (userid===req.session.user.UserId&&req.session.user.usertype==='3'){
@@ -48,6 +67,16 @@ exports.create = function (req, res, next) {
 //  };
  
 };
+//保存新预约车位
+
+exports.put = function (req, res, next) {
+
+
+}
+//更新预约车位
+exports.update = function (req, res, next) {
+
+}
 
 
 // //增加更新维修人员

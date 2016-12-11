@@ -47,9 +47,9 @@
       "name":"发现",
       "sub_button":[
         {
-          "type":"click",
+          "type":"view",
           "name":"车主宝典",
-          "key":"关于"
+          "url":"http://webot-bz.ittun.com/mycar/bzshow"
         },
         {
           "type":"view",

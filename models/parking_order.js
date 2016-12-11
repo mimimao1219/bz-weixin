@@ -2,6 +2,7 @@ var mongoose  = require('mongoose');
 //var BaseModel = require("./base_model");
 var config    = require('../config');
 var _         = require('lodash');
+var tools = require('../common/tools');
 var Schema    = mongoose.Schema;
 var ObjectId  = Schema.ObjectId;
 
@@ -18,8 +19,13 @@ var ParkingOrderSchema = new Schema({
   update_name: { type: String },  //状态更新人员
   create_at: { type: Date, default: Date.now }, //创建时间
   update_at: { type: Date, default: Date.now },//更新时间
+  hour:{ type: Number },
 
 });
+
+ParkingOrderSchema.methods.reserve_at_ago = function () {
+    return tools.formatDate(this.reserve_at, false);
+  };
 
 ParkingOrderSchema.virtual('statename').get(function () {
   var state  = this.state;

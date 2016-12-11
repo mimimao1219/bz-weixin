@@ -1,8 +1,9 @@
 var bcrypt = require('bcryptjs');
 var moment = require('moment');
 var CryptoJS = require("crypto-js");
-var TokenModel = require('../models').Token;
+//var TokenModel = require('../models').Token;
 var config       = require('../config');
+
 
 moment.locale('zh-cn'); // 使用中文
 //微信页面授权获取用户openid
@@ -10,9 +11,12 @@ var OAuth = require('wechat-oauth');
 var OAuthClient = new OAuth(config.weixin.appId, config.weixin.appSecret, function (openid, callback) {
   // 传入一个根据openid获取对应的全局token的方法
   // 在getUser时会通过该方法来获取token
+	var TokenModel = require('../models').Token;
   TokenModel.getToken(openid, callback);
 }, function (openid, token, callback) {
   // 持久化时请注意，每个openid都对应一个唯一的token!
+	//console.log(UserModel);
+	var TokenModel = require('../models').Token;
   TokenModel.setToken(openid, token, callback);
 });
 exports.oauthClient = OAuthClient;
