@@ -33,6 +33,7 @@ var helmet = require('helmet');
 var bytes = require('bytes')
 var webot = require('weixin-robot');
 var UserModel = require('./models').User;
+var ParkingOrderModel = require('./models').ParkingOrder;
 
 // 静态文件目录
 var staticDir = path.join(__dirname, 'public');
@@ -211,16 +212,22 @@ var RepairHistoryModel = require('./models').RepairHistory;
 var moment = require('moment');
 
 
-//定时任务 每天8点到17点，每间隔一小时扫描一次
+//定时任务 ，每间隔一小时扫描一次
 //var WechatAPI = require('wechat-api');
 var rule = new schedule.RecurrenceRule();
-rule.dayOfWeek = [0, new schedule.Range(1, 5)];
-rule.hour = [new schedule.Range(8, 17)];
-rule.minute = [40];
+// rule.dayOfWeek = [0, new schedule.Range(1, 5)];
+// rule.hour = [new schedule.Range(8, 17)];
+rule.minute = [30];
 var j = schedule.scheduleJob(rule, function () {
-	var lday = moment().subtract(1, 'days').format('YYYY-MM-DD hh:mm');
-	var lhour = moment().subtract(25, 'minutes').format('YYYY-MM-DD hh:mm');
-	//定时扫描数据库表发送消息
+	// var day = moment().subtract(1, 'h').format('YYYY-MM-DD hh:mm');
+	var hour = moment().subtract(3, 'h');
+	//定时扫描数据库超时取消预约。
+   ParkingOrderModel.find({ reserve_at: {$gt:hour} ,state: '1'}, function (err, ParkingOrder) {
+     ParkingOrder.state=4;
+     ParkingOrder.update_at=moment();
+     ParkingOrder.save();
+   });
+
 });
 
 

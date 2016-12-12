@@ -52,8 +52,8 @@ exports.login = function (req, res, next) {
 	var tel = req.body.tel;
 	var r_url = req.body.r_url;
 	//需要验证码校验
-	// var code = req.session.checkCode;
-    // if (code ===req.body.checkCode){
+	var code = req.session.checkCode;
+    if (code ===req.body.checkCode){
 	
 	UserModel.findOne({ open_id: openid }, null, function (err, user) {		
 		user.tel=tel;
@@ -66,9 +66,9 @@ exports.login = function (req, res, next) {
         return	res.redirect(r_url);
        
 		});
-	// }else{
-	// 	return	res.redirect('/sign?r_url='+r_url);
-	// }
+	}else{
+		return	res.redirect('/sign?r_url='+r_url);
+	}
 
 }
 
@@ -77,7 +77,6 @@ exports.checkCode = function (req, res, next) {
 	var tel=req.body.phone;
     var code=req.body.code;
 	req.session.checkCode=code;
-	console.log(req.session.checkCode);
     //阿里大于短信发送
 	topclient.execute( 'alibaba.aliqin.fc.sms.num.send' , {
 		'extend' : '' ,

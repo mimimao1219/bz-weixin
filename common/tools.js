@@ -27,7 +27,7 @@ TopClient = require( '../common/topClient' ).TopClient;
 var topclient = new TopClient({
      'appkey' : config.tosms.appkey ,
      'appsecret' : config.tosms.appsecret ,
-     'REST_URL' : ' http://gw.api.taobao.com/router/rest '
+     'REST_URL' : 'http://gw.api.taobao.com/router/rest'
 });
 exports.topclient = topclient;
 
