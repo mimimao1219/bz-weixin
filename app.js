@@ -222,10 +222,12 @@ var j = schedule.scheduleJob(rule, function () {
 	// var day = moment().subtract(1, 'h').format('YYYY-MM-DD hh:mm');
 	var hour = moment().subtract(3, 'h');
 	//定时扫描数据库超时取消预约。
-   ParkingOrderModel.find({ reserve_at: {$gt:hour} ,state: '1'}, function (err, ParkingOrder) {
+   ParkingOrderModel.find({ reserve_at: {$gt:hour} ,state: '1'}, function (err, ParkingOrders) {
+     ParkingOrders.forEach(function (ParkingOrder) {
      ParkingOrder.state=4;
      ParkingOrder.update_at=moment();
      ParkingOrder.save();
+     });
    });
 
 });
