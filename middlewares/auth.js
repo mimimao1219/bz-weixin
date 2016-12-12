@@ -1,9 +1,6 @@
 var mongoose = require('mongoose');
 
 var UserModel = require('../models').User;
-// var RepairManagerModel = require('../models').RepairManager;
-// var CompanyModel = require('../models').Company;
-// var RepairCompanyModel = require('../models').RepairCompany;
 var request = require('request-json');
 var tools = require('../common/tools')
 var config = require('../config');
@@ -12,11 +9,12 @@ var WechatAPI = require('wechat-api');
 //var validator = require('validator');
 var client        = require('../common/tools').oauthClient;
 var TokenModel = require('../models').Token;
+var topclient        = require('../common/tools').topclient;
 /**
  * 检查是否绑定手机号。
  */
 exports.userRequired = function (req, res, next) {
-	console.log(req.session);
+	// console.log(req.session);
 	if (req.session.user&&req.session.user.tel) {
        next();
 	}else{
@@ -24,7 +22,7 @@ exports.userRequired = function (req, res, next) {
     client.getAccessToken(code, function (err, result) {
        //var accessToken = result.data.access_token;
 	   if (err) return	res.redirect('/bzshow');
-	   console.log(result);
+	//    console.log(result);
        var openid = result.data.openid;
 	   UserModel.findOne({ open_id: openid }, null, function (err, user) {
 			if (user&&user.tel) {
@@ -42,7 +40,6 @@ exports.userRequired = function (req, res, next) {
 };
 
 exports.sign = function (req, res, next) {
-	req.session.yzm = '4561';
 	var openid = req.query.openid||req.session.user.open_id;
 	var r_url = req.query.r_url||'/mycar/list'  ;
 	var err = 0;
@@ -55,18 +52,72 @@ exports.login = function (req, res, next) {
 	var tel = req.body.tel;
 	var r_url = req.body.r_url;
 	//需要验证码校验
+	// var code = req.session.checkCode;
+    // if (code ===req.body.checkCode){
 	
 	UserModel.findOne({ open_id: openid }, null, function (err, user) {		
 		user.tel=tel;
 		//增加获取车辆信息接口
+        user.username='xxxx';
+		user.plate_number='豫A88888';
 
-		
 		req.session.user=user;
 		user.save();
         return	res.redirect(r_url);
        
 		});
+	// }else{
+	// 	return	res.redirect('/sign?r_url='+r_url);
+	// }
 
+}
+
+exports.checkCode = function (req, res, next) {
+
+	var tel=req.body.phone;
+    var code=req.body.code;
+	req.session.checkCode=code;
+	console.log(req.session.checkCode);
+    //阿里大于短信发送
+	topclient.execute( 'alibaba.aliqin.fc.sms.num.send' , {
+		'extend' : '' ,
+		'sms_type' : 'normal' ,
+		'sms_free_sign_name' : config.tosms.sms_free_sign_name ,
+		'sms_param' : "{name:'"+code+"'}" ,
+		'rec_num' : tel ,
+		'sms_template_code' : config.tosms.sms_template_code
+	}, function(error, response) {
+		if (!error) console.log(response);
+		else console.log(error);
+	});
+   res.json({status: 'success'});
+	
+	
+}
+
+function getUserInfo(tel, cb) {
+    // var data1 = '{"Token":"' + config.pftoken + '","OpenID":"' + openid + '","Pid":"' + config.weixingzh + '"}';
+    // var queryStr = tools.myCipheriv(data1, config);
+
+    // var client = request.createClient('http://www.spdbcloud.com/');
+    // var data = {
+	// 	"tel": tel
+	// 	};
+	// console.log(data);
+    // client.post('api/WChartUserInfo', data, function (error, response, body) {
+    //   console.log(body);
+	// 	if (!error && response.statusCode == 200) {
+	// 		if (body.ResultData) {
+
+	// 			cb(null, tools.myDecipheriv(body.ResultData, config));
+	// 		} else {
+	// 			cb(null, null);
+	// 		}
+	// 	} else {
+	// 		cb(null, null);
+	// 	}
+
+	// });
 }
 
 
@@ -212,32 +263,32 @@ exports.login = function (req, res, next) {
 // 	});
 // }
 
-function getUserInfo(openid, config, cb) {
-    var data1 = '{"Token":"' + config.pftoken + '","OpenID":"' + openid + '","Pid":"' + config.weixingzh + '"}';
-    var queryStr = tools.myCipheriv(data1, config);
+// function getUserInfo(openid, config, cb) {
+//     var data1 = '{"Token":"' + config.pftoken + '","OpenID":"' + openid + '","Pid":"' + config.weixingzh + '"}';
+//     var queryStr = tools.myCipheriv(data1, config);
 
-    var client = request.createClient('http://www.spdbcloud.com/');
-    var data = {
-		"Uid": 1,
-		"QueryStr": queryStr,
-		"ReqCode": 0
-    };
-	console.log(data);
-    client.post('api/WChartUserInfo', data, function (error, response, body) {
-      console.log(body);
-		if (!error && response.statusCode == 200) {
-			if (body.ResultData) {
+//     var client = request.createClient('http://www.spdbcloud.com/');
+//     var data = {
+// 		"Uid": 1,
+// 		"QueryStr": queryStr,
+// 		"ReqCode": 0
+//     };
+// 	console.log(data);
+//     client.post('api/WChartUserInfo', data, function (error, response, body) {
+//       console.log(body);
+// 		if (!error && response.statusCode == 200) {
+// 			if (body.ResultData) {
 
-				cb(null, tools.myDecipheriv(body.ResultData, config));
-			} else {
-				cb(null, null);
-			}
-		} else {
-			cb(null, null);
-		}
+// 				cb(null, tools.myDecipheriv(body.ResultData, config));
+// 			} else {
+// 				cb(null, null);
+// 			}
+// 		} else {
+// 			cb(null, null);
+// 		}
 
-	});
-}
+// 	});
+// }
 
 function getAssets(AssetsNo, config, cb) {
     var data = '{AssetsNo:"' + AssetsNo + '",Token:"' + config.pftoken + '"}';

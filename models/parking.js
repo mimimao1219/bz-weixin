@@ -7,7 +7,7 @@ var ParkingSchema = new Schema({
   name: { type: String },//车位名称
   addr: { type: String }, // 车位地址
   sum: { type: Number },  //车位总数量
-  num: { type: String },  //车位可用数量
+  num: { type: Number },  //车位可用数量
   geo_x: { type: String },  //车位维度
   geo_y:{ type: String },//车位经度
   create_at: { type: Date, default: Date.now }, //创建时间

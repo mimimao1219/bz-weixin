@@ -31,6 +31,15 @@ var topclient = new TopClient({
 });
 exports.topclient = topclient;
 
+exports.randomCode = function (){
+    var str="0123456789";
+    var code = '';
+    for(i = 0; i < 4; i++){
+        code = code + str.charAt(Math.random() * 10);
+    }
+    return code;
+}
+
 
 //加密
 exports.myCipheriv = function (data,config) {

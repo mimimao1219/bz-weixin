@@ -11,6 +11,7 @@ var createSignature = signature.getSignature(config.weixin);
 
 router.get('/sign', auth.sign);
 router.post('/login', auth.login);
+router.post('/checkCode', auth.checkCode);
 router.get('/mycar/list',auth.userRequired, mycar.list);
 router.get('/mycar/bzshow', mycar.bzshow);
 router.get('/park/create',auth.userRequired, park.create);

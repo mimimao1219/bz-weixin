@@ -8,7 +8,6 @@ var tools        = require('../common/tools');
 var store        = require('../common/store');
 var config       = require('../config');
 var client        = require('../common/tools').oauthClient;
-var topclient        = require('../common/tools').topclient;
 var _            = require('lodash');
 //var wxs       = require('../common/signature');
 //var cache        = require('../common/cache');
