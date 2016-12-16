@@ -17,8 +17,6 @@ var fs = require('fs');
 var ParkingModel = require('../models').Parking;
 var ParkingOrderModel = require('../models').ParkingOrder;
 
-
-
 //预约车位 
 exports.create = function (req, res, next) {	
     //res.locals.open_id =req.session.user.open_id;

@@ -34,6 +34,7 @@ var bytes = require('bytes')
 var webot = require('weixin-robot');
 var UserModel = require('./models').User;
 var ParkingOrderModel = require('./models').ParkingOrder;
+var ParkingModel = require('./models').Parking;
 
 // 静态文件目录
 var staticDir = path.join(__dirname, 'public');
@@ -115,9 +116,10 @@ app.use(busboy({
     fileSize: bytes(config.file_limit)
   }
 }));
-
+var park_api = require('./controllers/park_api');
 // routes
-//app.use('/api/v1', cors(), apiRouterV1);   //api 需要支持跨域访问才行的。所以加上cors中间件了。
+app.post('/api/v1/park/park_list', cors(), park_api.park_list);   //api 需要支持跨域访问才行的。所以加上cors中间件了。
+app.post('/api/v1/park/park_update', cors(), park_api.park_update);
 app.use('/', webRouter);
 //对发来的消息预处理
 webot.beforeReply(function load_user(info, next) {
@@ -179,10 +181,6 @@ webot.set('unsubscribe', {
 webot.watch(app, { token: 'mimimao' });
 
 
-
-
-
-
 // error handler
 if (config.debug) {
   app.use(errorhandler());
@@ -205,10 +203,7 @@ if (!module.parent) {
   });
 }
 
-var RepairCurrentModel = require('./models').RepairCurrent;
-var RepairHistoryModel = require('./models').RepairHistory;
-//var tools        = require('./common/tools');
-//var UserModel = require('../models').User;
+
 var moment = require('moment');
 
 
@@ -227,6 +222,10 @@ var j = schedule.scheduleJob(rule, function () {
      ParkingOrder.state=4;
      ParkingOrder.update_at=moment();
      ParkingOrder.save();
+     ParkingModel.update({name: parkingOrder.name }, { $inc: { num: 1 }}, { multi: true }, function (err, result) {
+                if (err) throw err;
+                return null;
+          });  
      });
    });
 

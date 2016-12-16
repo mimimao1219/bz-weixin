@@ -66,13 +66,13 @@ var config = {
    //
    //ValECG0NODDNWsthxekCyJ_ux90KyZrz7rEZ2hLAGmI
   //浦发接口
- 	pftoken: 'FaultRepairSE',
- 	weixingzh: 'spdbcloud',
-  authflag: '1',
- 	//key:'SrJoxSWRwSPUVo1L6Ta84K7vCAADv6Ov',
- 	//iv:"6iQsiXGB@w>K$g\a",
- 	key: "SrJoxSWRwSPUVo1L6Ta84K7vC*#Av6Ov",
- 	iv: "6iQsiXGB@w29$g*a",
+ 	bztoken: 'bz-weixin1219',
+ 	//weixingzh: 'spdbcloud',
+  //authflag: '1',
+ 	key:'4V38HpUfCXzVOadHG-z4soDPohpn',
+ 	iv:"U5HNcuKlY20uj0",
+ 	//key: "SrJoxSWRwSPUVo1L6Ta84K7vC*#Av6Ov",
+ 	//iv: "6iQsiXGB@w29$g*a",
 
  	//正式的OpenID：oYVvgv9ECQTYKRfXaQqxNd2z2Xm8 （张晓辉）
 

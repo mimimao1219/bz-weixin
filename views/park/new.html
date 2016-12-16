@@ -10,23 +10,23 @@
 </head>
 <body>
 
-	<form class="mui-input-group" action='/park/create' method='post'>
+	<form  action='/park/create' method='post'>
 	<input type='hidden' name='_csrf' value='<%= csrf %>'>
 	<input type='hidden' id='open_id' name='open_id' value='<%=ParkingOrder.open_id %>'>
 	<input type='hidden' id='tel' name='tel' value='<%=ParkingOrder.tel %>'>
 	<input type='hidden' id='pid' name='pid' value='<%=ParkingOrder.pid %>'>
 	<input type='hidden' id='addr' name='addr' value='<%=ParkingOrder.addr %>'>
 
-	<div class="mui-content"style="margin-top:2px;">
-		<label style="margin-left:10px;">车主姓名</label>
+	<div class="mui-content"style="margin-top:15px;">
+		<label style="margin-left:10px;">车主姓名:</label>
 		<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">
 			<input id='username' name='username' type="text" value='<%=ParkingOrder.username %>' class="mui-input-clear" placeholder="车主姓名">
 		</div>			
-		<label style="margin-left:10px;">车牌号码</label>
+		<label style="margin-left:10px;">车牌号码:</label>
 		<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">
 			<input id='plate_number' name='plate_number' type="text" value='<%=ParkingOrder.plate_number %>' class="mui-input-clear" placeholder="车牌号码">
 		</div>	
-		<label style="margin-left:10px;">预订车位</label>
+		<label style="margin-left:10px;">预订车位:</label>
 		<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">
 			<input id='name' name='name' type="text" value='<%=ParkingOrder.name %>' class="mui-input-clear" placeholder="车辆位置">
 			<%  if (!ParkingOrder.reserve_at){ -%>
@@ -35,16 +35,17 @@
 				对不起现在没有车位了。请过段时间在预约</p>
 			<% } } %>
 		</div>
-		<label style="margin-left:10px;">预订时间：</label>
+		<label style="margin-left:10px;">预订时间:</label>
 		  <%  if (ParkingOrder.reserve_at){ -%>
 		        <input type='hidden' id='id' name='id' value='<%=ParkingOrder._id %>'>
 				<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">
 			     <input id='reserve_at' name='reserve_at' type="text" value='<%=ParkingOrder.reserve_at_ago() %>' class="mui-input-clear" >
 		        </div>
+				<% if(ParkingOrder.state==='1') { %>
 				<div class="mui-content-padded">
 		        	<button type="submit" class="mui-btn mui-btn-primary mui-btn-block"style="font-size: 20px;padding:5px 10px;height:45px;">取消预约</button>
 		   		 </div>
-		 <% 	}else{  -%>
+				<% }	}else{  -%>
 				<div class="mui-card" style="margin-top:10px;">
 				<% for(var i = ParkingOrder.hour; i <= ParkingOrder.hour+4; i++) { %>
 					<div class="mui-input-row mui-radio mui-left">

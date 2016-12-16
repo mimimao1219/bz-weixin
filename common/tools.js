@@ -46,20 +46,14 @@ exports.myCipheriv = function (data,config) {
 	var _strKey = CryptoJS.enc.Utf8.parse(config.key);
 	var _strVi = CryptoJS.enc.Utf8.parse(config.iv);
 	var _QueryStr = CryptoJS.AES.encrypt(Buffer(data).toString('base64'), _strKey, { iv: _strVi, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.ZeroPadding }).toString();
-
-	//var _QueryStr = CryptoJS.AES.encrypt(Buffer(utf16to8(data)).toString('base64'), _strKey, { iv: _strVi, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.ZeroPadding }).toString();
 	return _QueryStr;
-
 };
 //解密
 exports.myDecipheriv = function (data,config) {
 	var _strKey = CryptoJS.enc.Utf8.parse(config.key);
 	var _strVi = CryptoJS.enc.Utf8.parse(config.iv);
 	var _QueryStr = CryptoJS.AES.decrypt(data, _strKey, { iv: _strVi, padding: CryptoJS.pad.ZeroPadding }).toString(CryptoJS.enc.Utf8);
-    //console.log(Buffer(_QueryStr,'base64').toString());
-		//return utf8to16(Buffer(_QueryStr,'base64').toString());	
-		return Buffer(_QueryStr,'base64').toString();	
-	
+	return Buffer(_QueryStr,'base64').toString();	
 };
 
 // 格式化时间
