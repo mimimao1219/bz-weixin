@@ -65,16 +65,13 @@ var config = {
  	//https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQGn7zoAAAAAAAAAASxodHRwOi8vd2VpeGluLnFxLmNvbS9xLzRraW9jT25sWHprbW1rbFk1R0RpAAIEMrI3WAMEAAAAAA==
    //
    //ValECG0NODDNWsthxekCyJ_ux90KyZrz7rEZ2hLAGmI
-  //浦发接口
+ 
  	bztoken: 'bz-weixin1219',
- 	//weixingzh: 'spdbcloud',
-  //authflag: '1',
  	key:'4V38HpUfCXzVOadHG-z4soDPohpn',
  	iv:"U5HNcuKlY20uj0",
- 	//key: "SrJoxSWRwSPUVo1L6Ta84K7vC*#Av6Ov",
- 	//iv: "6iQsiXGB@w29$g*a",
 
- 	//正式的OpenID：oYVvgv9ECQTYKRfXaQqxNd2z2Xm8 （张晓辉）
+
+
 
 };
 
