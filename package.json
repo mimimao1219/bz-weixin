@@ -1,10 +1,10 @@
 {
-  "name": "repairnew",
+  "name": "bz-weixin",
   "version": "1.0.1",
   "private": true,
   "main": "app.js",
   "description": " using MongoDB",
-  "repository": "https://github.com/mimimao1219/repair.git",
+  "repository": "https://github.com/mimimao1219/bz-weixin.git",
   "engines": {
     "node": "0.12.x"
   },
