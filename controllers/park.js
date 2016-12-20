@@ -78,7 +78,11 @@ exports.put = function (req, res, next) {
     parkingOrder.name=req.body.name;
     parkingOrder.addr=req.body.addr;
     var hour = req.body.hour;
+    if (hour>=24){
+     parkingOrder.reserve_at=moment().day(1).hour(hour-24);
+    }else{
     parkingOrder.reserve_at=moment().hour(hour);
+    };
     parkingOrder.state='1';
     parkingOrder.update_name=req.session.user.username;
     parkingOrder.save();

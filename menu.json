@@ -1,60 +1,66 @@
 {
   "button":[
     {  
-      "name":"我的",
+      "name":"买车",
       "sub_button":[
         {
           "type":"click",
-          "name":"车主宝典",
+          "name":"新车试驾",
           "key":"关于"
         },
         {
           "type":"view",
-          "name":"车辆保养",
-          "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc6459c121f2e6399&redirect_uri=http://webot-bz.ittun.com/mycar/list&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
+          "name":"优惠资讯",
+          "url":"http://webot-bz.ittun.com/mycar/bzshow"
         }]
     },
     {
-      "name":"星徽魅力",
+      "name":"服务",
       "sub_button":[
         {
           "type":"click",
-          "name":"预约",
+          "name":"售后预约",
           "key":"music"
         },
         {
           "type":"click",
-          "name":"询价",
-          "key":"drama"
-        },
-        {
-          "type":"click",
-          "name":"救援",
+          "name":"道路救援",
           "key":"展览"
         },
         {
           "type":"click",
-          "name":"置换",
+          "name":"车主福利",
+          "key":"drama"
+        },
+        
+        {
+          "type":"click",
+          "name":"投诉建议",
           "key":"讲座"
         },
         {
-          "type":"click",
-          "name":"商城",
-          "key":"聚会"
+          "type":"view",
+          "name":"车位预约",
+          "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc6459c121f2e6399&redirect_uri=http://webot-bz.ittun.com/park/create&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
         }]
     },
     {
-      "name":"发现",
+      "name":"我的",
       "sub_button":[
         {
           "type":"view",
-          "name":"车主宝典",
+          "name":"优惠活动",
           "url":"http://webot-bz.ittun.com/mycar/bzshow"
         },
         {
           "type":"view",
-          "name":"机场停车",
-          "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc6459c121f2e6399&redirect_uri=http://webot-bz.ittun.com/park/create&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
+          "name":"爱车课堂",
+          "url":"http://webot-bz.ittun.com/mycar/bzshow"
+        },
+        {
+          "type":"view",
+          "name":"个人中心",
+           "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc6459c121f2e6399&redirect_uri=http://webot-bz.ittun.com/mycar/list&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
         }]
     }]
 }

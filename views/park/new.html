@@ -46,14 +46,20 @@
 		        	<button type="submit" class="mui-btn mui-btn-primary mui-btn-block"style="font-size: 20px;padding:5px 10px;height:45px;">取消预约</button>
 		   		 </div>
 				<% }	}else{  -%>
-				<div class="mui-card" style="margin-top:10px;">
-				<% for(var i = ParkingOrder.hour; i <= ParkingOrder.hour+4; i++) { %>
-					<div class="mui-input-row mui-radio mui-left">
-						<label><%= i %>点
-						<input name="hour" value=<%= i %> type="radio" ></label>
-					</div>
+				<!--<div class="mui-card" style="margin-top:10px;">-->
+				<ul class="mui-table-view mui-grid-view mui-grid-9" style="margin-top:10px;background-color: #FFFFFF;">
+				<% for(var i = ParkingOrder.hour; i <= ParkingOrder.hour+22; i=i+2) { %>
+					<% var ii=i;var ik=i+2; if (i>=24) {ii=i-24;} ;if (ik>=24) {ik=ik-24;} ; %>
+				<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-12" style=<% if(ii!=i){ %>"height:40px;background-color: #e6fefe;"<%}else{ %>"height: 40px;" <%} %> >
+		                    <div class="mui-input-row mui-radio mui-left" style="margin-top: -10px;">
+								<!--<%=(ii!=i)&&"height:40px;background-color: #BDDFAF;"||"height: 40px;" %>-->
+								<label ><%= ii %>--<%= ik %>点
+								<input name="hour" value=<%= i %> type="radio" > </label>
+							</div> 
+		            </li>
 					 <% } %>
-					</div>
+				</ul>
+					<!--</div>-->
 					<% if (num!=0) { %>
 						<div class="mui-content-padded">
 							<button type="submit" class="mui-btn mui-btn-primary mui-btn-block"style="font-size: 20px;padding:5px 10px;height:45px;">确认预约</button>

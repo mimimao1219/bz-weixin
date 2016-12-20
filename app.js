@@ -213,23 +213,23 @@ var rule = new schedule.RecurrenceRule();
 // rule.dayOfWeek = [0, new schedule.Range(1, 5)];
 // rule.hour = [new schedule.Range(8, 17)];
 rule.minute = [30];
-var j = schedule.scheduleJob(rule, function () {
-	// var day = moment().subtract(1, 'h').format('YYYY-MM-DD hh:mm');
-	var hour = moment().subtract(3, 'h');
-	//定时扫描数据库超时取消预约。
-   ParkingOrderModel.find({ reserve_at: {$gt:hour} ,state: '1'}, function (err, ParkingOrders) {
-     ParkingOrders.forEach(function (ParkingOrder) {
-     ParkingOrder.state=4;
-     ParkingOrder.update_at=moment();
-     ParkingOrder.save();
-     ParkingModel.update({name: parkingOrder.name }, { $inc: { num: 1 }}, { multi: true }, function (err, result) {
-                if (err) throw err;
-                return null;
-          });  
-     });
-   });
+// var j = schedule.scheduleJob(rule, function () {
+// 	// var day = moment().subtract(1, 'h').format('YYYY-MM-DD hh:mm');
+// 	var hour = moment().subtract(3, 'h');
+// 	//定时扫描数据库超时取消预约。
+//    ParkingOrderModel.find({ reserve_at: {$gt:hour} ,state: '1'}, function (err, ParkingOrders) {
+//      ParkingOrders.forEach(function (ParkingOrder) {
+//      ParkingOrder.state=4;
+//      ParkingOrder.update_at=moment();
+//      ParkingOrder.save();
+//      ParkingModel.update({name: parkingOrder.name }, { $inc: { num: 1 }}, { multi: true }, function (err, result) {
+//                 if (err) throw err;
+//                 return null;
+//           });  
+//      });
+//    });
 
-});
+// });
 
 
 //oJme-szsGYjRcIMIFxvvt5XAI8qo
