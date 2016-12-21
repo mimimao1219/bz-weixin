@@ -59,7 +59,7 @@ exports.put = function (req, res, next) {
         ParkingOrderModel.findOne({ _id: req.body.id }, function (err, parkingOrder) {
             parkingOrder.state=4;
             parkingOrder.update_name=req.session.user.username;
-            parkingOrder.update_at=moment();
+            parkingOrder.update_at=moment().format();
             parkingOrder.save();
             ParkingModel.update({name: parkingOrder.name }, { $inc: { num: 1 }}, { multi: true }, function (err, result) {
                 if (err) throw err;
@@ -79,9 +79,9 @@ exports.put = function (req, res, next) {
     parkingOrder.addr=req.body.addr;
     var hour = req.body.hour;
     if (hour>=24){
-     parkingOrder.reserve_at=moment().day(1).hour(hour-24);
+     parkingOrder.reserve_at=moment().add(1, 'd').hour(hour-24).format();
     }else{
-    parkingOrder.reserve_at=moment().hour(hour);
+    parkingOrder.reserve_at=moment().hour(hour).format();
     };
     parkingOrder.state='1';
     parkingOrder.update_name=req.session.user.username;

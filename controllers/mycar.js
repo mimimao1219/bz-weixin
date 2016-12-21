@@ -50,7 +50,7 @@ exports.list = function (req, res, next) {
 	   res.render('mycar/list', {
      		 mycar: '一连串' +openid,
     	});
-//});
+};
 
 
 
