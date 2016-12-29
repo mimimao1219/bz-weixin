@@ -120,9 +120,11 @@ var park_api = require('./controllers/park_api');
 // routes
 app.post('/api/v1/park/park_list', cors(), park_api.park_list);   //api 需要支持跨域访问才行的。所以加上cors中间件了。
 app.post('/api/v1/park/park_update', cors(), park_api.park_update);
+app.post('/api/v1/park/park_getOrder', cors(), park_api.park_getOrder);
 app.use('/', webRouter);
 //对发来的消息预处理
 webot.beforeReply(function load_user(info, next) {
+  //console.log(info);
   UserModel.findOne({ open_id: info.uid }, null, function (err, user) {
 			if (user) {
         info.user = user;
@@ -213,23 +215,29 @@ var rule = new schedule.RecurrenceRule();
 // rule.dayOfWeek = [0, new schedule.Range(1, 5)];
 // rule.hour = [new schedule.Range(8, 17)];
 rule.minute = [30];
-// var j = schedule.scheduleJob(rule, function () {
-// 	// var day = moment().subtract(1, 'h').format('YYYY-MM-DD hh:mm');
-// 	var hour = moment().subtract(3, 'h');
-// 	//定时扫描数据库超时取消预约。
-//    ParkingOrderModel.find({ reserve_at: {$gt:hour} ,state: '1'}, function (err, ParkingOrders) {
-//      ParkingOrders.forEach(function (ParkingOrder) {
-//      ParkingOrder.state=4;
-//      ParkingOrder.update_at=moment();
-//      ParkingOrder.save();
-//      ParkingModel.update({name: parkingOrder.name }, { $inc: { num: 1 }}, { multi: true }, function (err, result) {
-//                 if (err) throw err;
-//                 return null;
-//           });  
-//      });
-//    });
+var j = schedule.scheduleJob(rule, function () {
+	// var day = moment().subtract(1, 'h').format('YYYY-MM-DD hh:mm');
+	var today = moment();
+  var hour = moment().subtract(3, 'h');
+	//定时扫描数据库超时取消预约。
+   ParkingOrderModel.find({ reserve_at: {$gt:hour,$lt:today} ,state: '1'}, function (err, ParkingOrders) {
+     ParkingOrders.forEach(function (ParkingOrder) {
+     console.log(today.format());
+     console.log(ParkingOrder.reserve_at_ago());
+//      2016-12-26T18:30:00+08:00
+// 2016-12-26 17:41
 
-// });
+     ParkingOrder.state=4;
+     ParkingOrder.update_at=moment();
+     ParkingOrder.save();
+     ParkingModel.update({name: ParkingModel.name }, { $inc: { num: 1 }}, { multi: true }, function (err, result) {
+                if (err) throw err;
+                return null;
+          });  
+     });
+   });
+
+});
 
 
 //oJme-szsGYjRcIMIFxvvt5XAI8qo

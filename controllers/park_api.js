@@ -17,6 +17,24 @@ var fs = require('fs');
 var ParkingModel = require('../models').Parking;
 var ParkingOrderModel = require('../models').ParkingOrder;
 
+//预约车位订单信息 api
+exports.park_getOrder = function (req, res, next) {
+    var QueryStr = tools.myDecipheriv(req.body.QueryStr,config);
+    var querystr=JSON.parse(QueryStr);
+    var token= querystr.token;
+     if (token===config.bztoken&&querystr!=null&&querystr.id!=null){
+     ParkingOrderModel.findOne({_id: querystr.id}, function (err, parkingOrder) {
+     var morders =  _.pick(parkingOrder, ['_id','open_id', 'username', 'tel', 'plate_number', 'name',
+         'reserve_at','state']);
+     var orders = tools.myCipheriv(JSON.stringify(morders),config);
+     res.send({Status: 0,MsgStr: "查询请求成功!", ResultData: orders});
+   });
+   }else{
+     res.send({Status: -1,MsgStr: "这是非法请求!"});
+   }
+  
+}
+
 //预约车位列表 api
 exports.park_list = function (req, res, next) {
     var QueryStr = tools.myDecipheriv(req.body.QueryStr,config);
@@ -42,13 +60,14 @@ exports.park_update = function (req, res, next) {
     var QueryStr = tools.myDecipheriv(req.body.QueryStr,config);
     var querystr=JSON.parse(QueryStr);
     var token= querystr.token;
-    if (token===config.bztoken){
+    console.log(querystr);
+    if (token===config.bztoken&&querystr!=null&&querystr.id!=null&&querystr.state!=null&&querystr.name!=null){
          ParkingOrderModel.findOne({ _id: querystr.id }, function (err, parkingOrder) {
          parkingOrder.state=querystr.state;
          parkingOrder.update_name=querystr.name;
          parkingOrder.update_at=moment();
-         parkingOrder.save();
-         ParkingModel.update({name: parkingOrder.name }, { $inc: { num: 1 }}, { multi: true }, function (err, result) {
+         parkingOrder.save();    
+         ParkingModel.update({name: parkingOrder.name  }, { $inc: { num: 1 }}, { multi: true }, function (err, result) {
                 if (err) throw err;
                 return null;
             });  

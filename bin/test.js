@@ -6,36 +6,35 @@ var CryptoJS = require("crypto-js");
 var topclient        = require('../common/tools').topclient;
 var request = require('request-json');
 var moment = require('moment');
-console.log(moment().format());
-console.log(moment().add(1, 'd').format());
-console.log(moment().add(1, 'd').hour(26-24).format());
+
 //console.log(moment().add(1, 'd').hour(26-24).format());
 
 // var data1 = '{"token":"' + config.bztoken + '"}';
+//var data1 = '{"token":"' + config.bztoken + '","id":"5864709d3b43d8968f50e262"}';
+var data1 = '{"token":"' + config.bztoken + '","tel":"18900167332"}';
+    var queryStr = tools.myCipheriv(data1, config);
 
-// //var data1 = '{"token":"' + config.bztoken + '","id":"5853913631aef26d13de1ad7","state":"3","name":"王岩"}';
-//     var queryStr = tools.myCipheriv(data1, config);
+    var client = request.createClient('http://parking.wx.hnbenz.com/');
+    var data = {
+		"QueryStr": queryStr
+		};
+	console.log(data);
+	client.post('userinfo', data, function (error, response, body) {
+    //client.post('api/v1/park/park_list', data, function (error, response, body) {
+	//client.post('api/v1/park/park_update', data, function (error, response, body) {
+      console.log(body);
+		if (!error && response.statusCode == 200) {
+			if (body.ResultData) {
+                console.log(tools.myDecipheriv(body.ResultData, config));
+			//	cb(null, tools.myDecipheriv(body.ResultData, config));
+			} else {
+				//cb(null, null);
+			}
+		} else {
+			//cb(null, null);
+		}
 
-//     var client = request.createClient('http://webot-bz.ittun.com/');
-//     var data = {
-// 		"QueryStr": queryStr
-// 		};
-// 	console.log(data);
-//     client.post('api/v1/park/park_list', data, function (error, response, body) {
-// 	//client.post('api/v1/park/park_update', data, function (error, response, body) {
-//       console.log(body);
-// 		if (!error && response.statusCode == 200) {
-// 			if (body.ResultData) {
-//                 console.log(tools.myDecipheriv(body.ResultData, config));
-// 			//	cb(null, tools.myDecipheriv(body.ResultData, config));
-// 			} else {
-// 				//cb(null, null);
-// 			}
-// 		} else {
-// 			//cb(null, null);
-// 		}
-
-// 	});
+	});
 
 //加密解密
 // var mm="奔驰信息abcdefghijk1234567890-=\][]";
