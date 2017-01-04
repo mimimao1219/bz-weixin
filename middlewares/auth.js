@@ -10,6 +10,7 @@ var WechatAPI = require('wechat-api');
 var client        = require('../common/tools').oauthClient;
 var TokenModel = require('../models').Token;
 var topclient        = require('../common/tools').topclient;
+var _            = require('lodash');
 /**
  * 检查是否绑定手机号。
  */
@@ -96,27 +97,53 @@ exports.checkCode = function (req, res, next) {
 
 function getUserInfo(tel, cb) {
     // var data1 = '{"Token":"' + config.pftoken + '","OpenID":"' + openid + '","Pid":"' + config.weixingzh + '"}';
-    // var queryStr = tools.myCipheriv(data1, config);
+    var data1 = '{"token":"' + config.bztoken + '","tel":"'+tel+'"}';
+	var queryStr = tools.myCipheriv(data1, config);
+    var client = request.createClient('http://parking.wx.hnbenz.com/');
+	var data = {
+		"QueryStr": queryStr
+		};
 
-    // var client = request.createClient('http://www.spdbcloud.com/');
-    // var data = {
-	// 	"tel": tel
-	// 	};
-	// console.log(data);
-    // client.post('api/WChartUserInfo', data, function (error, response, body) {
-    //   console.log(body);
-	// 	if (!error && response.statusCode == 200) {
-	// 		if (body.ResultData) {
+    client.post('userinfo', data, function (error, response, body) {
+      //console.log(body);
+		if (!error && response.statusCode == 200) {
+			if (body.ResultData) {
 
-	// 			cb(null, tools.myDecipheriv(body.ResultData, config));
-	// 		} else {
-	// 			cb(null, null);
-	// 		}
-	// 	} else {
-	// 		cb(null, null);
-	// 	}
+				cb(null, tools.myDecipheriv(body.ResultData, config));
+			} else {
+				cb(null, null);
+			}
+		} else {
+			cb(null, null);
+		}
 
-	// });
+	});
+}
+
+function sendQyMsg(parkOrder, cb) {
+    
+    var data1 = '{"token":"' + config.bztoken + '"}';
+	var ddate = _.merge(JSON.parse(data1),parkOrder);
+	var queryStr = tools.myCipheriv(JSON.stringify(ddate), config);
+    var client = request.createClient('http://parking.wx.hnbenz.com/');
+	var data = {
+		"QueryStr": queryStr
+		};
+
+    client.post('msg', data, function (error, response, body) {
+      //console.log(body);
+		if (!error && response.statusCode == 200) {
+			if (body.ResultData) {
+
+				cb(null, tools.myDecipheriv(body.ResultData, config));
+			} else {
+				cb(null, null);
+			}
+		} else {
+			cb(null, null);
+		}
+
+	});
 }
 
 

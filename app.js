@@ -116,11 +116,7 @@ app.use(busboy({
     fileSize: bytes(config.file_limit)
   }
 }));
-var park_api = require('./controllers/park_api');
-// routes
-app.post('/api/v1/park/park_list', cors(), park_api.park_list);   //api 需要支持跨域访问才行的。所以加上cors中间件了。
-app.post('/api/v1/park/park_update', cors(), park_api.park_update);
-app.post('/api/v1/park/park_getOrder', cors(), park_api.park_getOrder);
+
 app.use('/', webRouter);
 //对发来的消息预处理
 webot.beforeReply(function load_user(info, next) {
@@ -236,9 +232,7 @@ var j = schedule.scheduleJob(rule, function () {
           });  
      });
    });
-
 });
 
 
-//oJme-szsGYjRcIMIFxvvt5XAI8qo
 module.exports = app;
