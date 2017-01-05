@@ -2,43 +2,24 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>我的</title>
-
-	<link rel="stylesheet" href="../public/stylesheets/mui.min.css" />
-	<style>
-		.mui-control-content {
-			background-color: #EFEFF4;
-			min-height: 450px;
-		}
-		.mui-control-content .mui-loading {
-			margin-top: 50px;
-		}
-		#topPopover {position: fixed;}
-		.mui-popover {height: 167px;}
-		.mui-table-view-cell a:active{background:#efeff4; display: block; color: #007aff;}
-		.mui-popover .mui-scroll-wrapper {margin: 0px 0; }
-		.mui-table-view-cell:after{right: 15px;}
-	</style>
-     
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>个人中心</title>
+    <link href="../public/stylesheets/mui.min.css" rel="stylesheet"/>
 </head>
 <body>
-	
-	<div class="mui-content">
-		<ul class="mui-table-view" style="margin-top: 0px;">
-			<li class="mui-table-view-cell mui-media" >
-				
-			</li>
-		</ul>
-		
-		<div id="slider" class="mui-slider"style="margin-top: 0px;position: fixed;">
-			您好欢迎您。
-			 	<%= mycar %>		
-			
-			</div>
 
+	<div class="mui-content"style="margin-top:15px;">
+		<%if (cars!=null){%>
+			<%- partial('./_car', {collection:cars, as:'car'}) %>
+		<%}else{%>
+         <label style="margin-left:10px;">对不起您还没有添加车辆信息请添加</label>
+		<%}%>	
 	</div>
-	
+
+	</body>
+
 <script src="../public/javascripts/mui.min.js"></script>
 <script src="../public/javascripts/zepto.min.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
@@ -83,5 +64,5 @@
 	}
 </script>
 		
-</body>
+
 </html>

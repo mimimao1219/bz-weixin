@@ -11,6 +11,7 @@ var client        = require('../common/tools').oauthClient;
 var TokenModel = require('../models').Token;
 var topclient        = require('../common/tools').topclient;
 var _            = require('lodash');
+var CarModel = require('../models').Car;
 /**
  * 检查是否绑定手机号。
  */
@@ -59,12 +60,29 @@ exports.login = function (req, res, next) {
 	UserModel.findOne({ open_id: openid }, null, function (err, user) {		
 		user.tel=tel;
 		//增加获取车辆信息接口
-        user.username='xxxx';
-		user.plate_number='豫A88888';
+		getUserInfo('18900167332',function (err, mcars){
 
-		req.session.user=user;
-		user.save();
-        return	res.redirect(r_url);
+          if (mcars){
+			 JSON.parse(mcars).map(function (mycar) {
+				 var car = new CarModel();
+				 car.open_id=user.open_id;
+				 car.username=mycar.name;
+				 car.tel=user.tel;
+				 car.kind=mycar.car_name;
+				 car.plate_number=mycar.plate_number;
+				 car.save();
+				 user.username=mycar.name;
+			 });
+			 req.session.user=user;
+		     user.save();
+             return	res.redirect(r_url);
+		  }else{
+			req.session.user=user; 
+			return	res.redirect(r_url);
+		  }
+		});
+
+        
        
 		});
 	}else{

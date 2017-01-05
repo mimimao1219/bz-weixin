@@ -16,6 +16,7 @@ var http = require('http');
 var fs = require('fs');
 var ParkingModel = require('../models').Parking;
 var ParkingOrderModel = require('../models').ParkingOrder;
+var CarModel = require('../models').Car;
 
 //预约车位 
 exports.create = function (req, res, next) {	
@@ -27,24 +28,34 @@ exports.create = function (req, res, next) {
      		 ParkingOrder: ParkingOrder
     	   });
         }else{
+            //判断是否有车
+
            var  ParkingOrder = new ParkingOrderModel();
             ParkingOrder.open_id=req.session.user.open_id;
             ParkingOrder.username=req.session.user.username;
-            ParkingOrder.tel=req.session.user.tel
-            ParkingOrder.plate_number=req.session.user.plate_number
+            ParkingOrder.tel=req.session.user.tel;
+            //ParkingOrder.plate_number=req.session.user.plate_number
             
-            var ep = EventProxy.create(['Parking'], function (Parking) {
-                ParkingOrder.pid=Parking._id;
-                ParkingOrder.name=Parking.name;
-                ParkingOrder.addr=Parking.addr;
-                ParkingOrder.hour=moment().hour()+1;
-                res.locals.num= Parking.num;
-                res.locals.sum= Parking.sum;
-                res.render('park/new', {
-                    ParkingOrder: ParkingOrder
-                    });
+            var ep = EventProxy.create(['cars','Parking'], function (cars,Parking) {
+                if (cars) {
+                    ParkingOrder.pid=Parking._id;
+                    ParkingOrder.name=Parking.name;
+                    ParkingOrder.addr=Parking.addr;
+                    ParkingOrder.hour=moment().hour()+1;
+                    res.locals.num= Parking.num;
+                    res.locals.sum= Parking.sum;
+                    res.render('park/new', {
+                        ParkingOrder: ParkingOrder,
+                        cars:cars
+                     });
+                }else{
+                   //没有车跳转到车辆信息管理 
+                   return	res.redirect('/mycar/list');
+                }              
                 });
-           //查询停车场
+            //查询车辆信息
+            CarModel.find({tel:req.session.user.tel}, null, ep.done('cars'));
+           //查询停车场          
              ParkingModel.findOne({}, null, ep.done('Parking'));
         }
 

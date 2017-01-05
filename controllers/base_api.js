@@ -25,7 +25,7 @@ exports.getQRCode = function (req, res, next) {
          weixinApi.createLimitQRCode(querystr.id, function (err, result){
 
          var murl = weixinApi.showQRCodeURL(result.ticket);
-         console.log(murl);
+        //  console.log(murl);
          var jurl = tools.myCipheriv(JSON.stringify(murl),config);
          res.send({Status: 0,MsgStr: "请求成功!", ResultData: jurl});
          });   

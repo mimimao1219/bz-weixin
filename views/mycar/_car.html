@@ -1,0 +1,24 @@
+<form id='<%=car._id %>'  action='/mycar/update' method='post'>
+	<input type='hidden' name='_csrf' value='<%= csrf %>'>
+	<input type='hidden' id='open_id' name='open_id' value='<%=car.open_id %>'>
+    <input type='hidden' id='id' name='id' value='<%=car._id %>'>
+       <label style="margin-left:10px;">姓名:</label>
+		<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">
+			<input id='username' name='username' type="text" value='<%=car.username %>' class="mui-input-clear" placeholder="姓名">
+		</div>	
+        <label style="margin-left:10px;">电话:</label>
+		<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">
+			<input id='tel' name='tel' type="text" value='<%=car.tel %>' class="mui-input-clear" placeholder="电话">
+		</div>
+        <label style="margin-left:10px;">车型:</label>
+		<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">
+			<input id='kind' name='kind' type="text" value='<%=car.kind %>' class="mui-input-clear" placeholder="车型">
+		</div>				
+		<label style="margin-left:10px;">车牌号码:</label>
+		<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">
+			<input id='plate_number' name='plate_number' type="text" value='<%=car.plate_number %>' class="mui-input-clear" placeholder="车牌号码">
+		</div>
+        <div class="mui-content-padded">
+			<button type="submit" class="mui-btn mui-btn-primary mui-btn-block"style="font-size: 20px;padding:5px 10px;height:45px;">确认更新</button>
+		</div>
+</form>     
