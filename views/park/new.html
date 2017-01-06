@@ -24,12 +24,13 @@
 		</div>			
 		<label style="margin-left:10px;">车牌号码:</label>
 		<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">
-			 <select  id='plate_number' name='plate_number' class="mui-input-clear" style="  border-bottom: 1px solid #e1e2e3; float: left; width: 60%; padding-left: 15px; ">
-					<%if (cars!=null){%>
-						<%- partial('./_car', {collection:cars, as:'car'}) %>
-				    <%}%>	
+			 <%if (cars!=null){%>
+			 <select  id='plate_number' name='plate_number' class="mui-input-clear" style="  padding-left: 15px; ">					
+						<%- partial('./_car', {collection:cars, as:'car'}) %>				    	
 			</select>
-			<!--<input id='plate_number' name='plate_number' type="text" value='<%=ParkingOrder.plate_number %>' class="mui-input-clear" placeholder="车牌号码">-->
+			<%}else{%>
+			<input id='plate_number' name='plate_number' type="text" value='<%=ParkingOrder.plate_number %>' class="mui-input-clear" placeholder="车牌号码">
+		    <%}%>
 		</div>	
 		<label style="margin-left:10px;">预订车位:</label>
 		<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">

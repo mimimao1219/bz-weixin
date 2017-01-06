@@ -147,13 +147,11 @@ function sendQyMsg(parkOrder, cb) {
 	var data = {
 		"QueryStr": queryStr
 		};
-
     client.post('msg', data, function (error, response, body) {
-      //console.log(body);
 		if (!error && response.statusCode == 200) {
 			if (body.ResultData) {
 
-				cb(null, tools.myDecipheriv(body.ResultData, config));
+				cb(null, tools.myDecipheriv(body, config));
 			} else {
 				cb(null, null);
 			}
@@ -163,6 +161,7 @@ function sendQyMsg(parkOrder, cb) {
 
 	});
 }
+exports.sendQyMsg = sendQyMsg;
 
 
 

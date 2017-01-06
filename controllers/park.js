@@ -17,6 +17,7 @@ var fs = require('fs');
 var ParkingModel = require('../models').Parking;
 var ParkingOrderModel = require('../models').ParkingOrder;
 var CarModel = require('../models').Car;
+var sendQyMsg = require('../middlewares/auth').sendQyMsg;
 
 //预约车位 
 exports.create = function (req, res, next) {	
@@ -25,11 +26,11 @@ exports.create = function (req, res, next) {
     ParkingOrderModel.findOne({ tel: req.session.user.tel ,state: { $in: [1, 2] }}, function (err, ParkingOrder) {
         if (ParkingOrder){
              res.render('park/new', {
-     		 ParkingOrder: ParkingOrder
+     		 ParkingOrder: ParkingOrder,
+              cars:null
     	   });
         }else{
-            //判断是否有车
-
+            
            var  ParkingOrder = new ParkingOrderModel();
             ParkingOrder.open_id=req.session.user.open_id;
             ParkingOrder.username=req.session.user.username;
@@ -76,15 +77,17 @@ exports.put = function (req, res, next) {
                 if (err) throw err;
                 return null;
             });  
+            //发送消息
+
             return	res.redirect('/park/create');
         });
 
     }else{
     var parkingOrder = new ParkingOrderModel();
     parkingOrder.open_id=req.session.user.open_id;
-    parkingOrder.username=req.session.user.username;
+    parkingOrder.username=req.body.username;
     parkingOrder.tel=req.session.user.tel;
-    parkingOrder.plate_number=req.session.user.plate_number;
+    parkingOrder.plate_number=req.body.plate_number;
     parkingOrder.pid=req.body.pid;
     parkingOrder.name=req.body.name;
     parkingOrder.addr=req.body.addr;
@@ -96,12 +99,21 @@ exports.put = function (req, res, next) {
     };
     parkingOrder.state='1';
     parkingOrder.update_name=req.session.user.username;
-    parkingOrder.save();
+    parkingOrder.save( function (err, order) {
+        //发送消息
+        var ooder = _.pick(order, ['_id', 'username', 'tel', 'plate_number', 'reserve_at','name']);
+        //console.log(ooder);
+        sendQyMsg(ooder, function (err, result) {
+            console.log(result);
+        })
+    });
     //减少车位数量
     ParkingModel.update({name: req.body.name }, { $inc: { num: -1 }}, { multi: true }, function (err, result) {
         if (err) throw err;
         return null;
-    });       
+    });  
+    
+
     return	res.redirect('/park/create');
     }
 
