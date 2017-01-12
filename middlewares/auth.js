@@ -163,6 +163,31 @@ function sendQyMsg(parkOrder, cb) {
 }
 exports.sendQyMsg = sendQyMsg;
 
+function sendtokf(info, cb) {
+    
+    var data1 = '{"token":"' + config.bztoken + '"}';
+	var ddate = _.merge(JSON.parse(data1),info);
+	var queryStr = tools.myCipheriv(JSON.stringify(ddate), config);
+    var client = request.createClient('http://kf.wx.hnbenz.com/');
+	var data = {
+		"QueryStr": queryStr
+		};
+    client.post('sendtokf', data, function (error, response, body) {
+		if (!error && response.statusCode == 200) {
+			if (body.ResultData) {
+
+				cb(null, tools.myDecipheriv(body, config));
+			} else {
+				cb(null, null);
+			}
+		} else {
+			cb(null, null);
+		}
+
+	});
+}
+exports.sendtokf = sendtokf;
+
 
 
 

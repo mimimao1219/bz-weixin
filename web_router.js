@@ -14,18 +14,22 @@ var base_api = require('./controllers/base_api');
 router.post('/api/v1/park/park_list', cors(), park_api.park_list);   //api 需要支持跨域访问才行的。所以加上cors中间件了。
 router.post('/api/v1/park/park_update', cors(), park_api.park_update);
 router.post('/api/v1/park/park_getOrder', cors(), park_api.park_getOrder);
-
+//baseAPI
 router.post('/api/v1/base/getQRCode', cors(), base_api.getQRCode);
+router.post('/api/v1/base/sendText', cors(), base_api.sendText);
 
 router.get('/sign', auth.sign);
 router.post('/login', auth.login);
 router.post('/checkCode', auth.checkCode);
 router.get('/mycar/list',auth.userRequired, mycar.list);
+
 router.post('/mycar/update', mycar.update);
 router.get('/mycar/bzshow', mycar.bzshow);
 router.get('/park/create',auth.userRequired, park.create);
 router.post('/park/create', park.put);// 保存新建的记录
-router.post('/park/update', park.update);//更新维修记录
+//router.post('/park/update', park.update);//更新维修记录
+router.get('/park/:tid', park.show);
+
 
 
 // 微信签名

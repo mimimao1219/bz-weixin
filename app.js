@@ -35,6 +35,7 @@ var webot = require('weixin-robot');
 var UserModel = require('./models').User;
 var ParkingOrderModel = require('./models').ParkingOrder;
 var ParkingModel = require('./models').Parking;
+var sendtokf = require('./middlewares/auth').sendtokf;
 
 // 静态文件目录
 var staticDir = path.join(__dirname, 'public');
@@ -118,18 +119,40 @@ app.use(busboy({
 }));
 
 app.use('/', webRouter);
-//对发来的消息预处理
-webot.beforeReply(function load_user(info, next) {
-  //console.log(info);
-  UserModel.findOne({ open_id: info.uid }, null, function (err, user) {
-			if (user) {
-        info.user = user;
-        next();
-      }
-		});
-    console.log("我来也1"+info.param.eventKey);
-  next();
+// //对发来的消息预处理
+// webot.beforeReply(function load_user(info, next) {
+//   //console.log(info);
+//   UserModel.findOne({ open_id: info.uid }, null, function (err, user) {
+// 			if (user) {
+//         info.user = user;
+//         next();
+//       }
+// 		});
+//     console.log("我来也1"+info.param.eventKey);
+//   next();
+// });
+//企业客服
+webot.set('kh', {
+  pattern: function(info) {
+    return info.is('text');
+  },
+  handler: function(info) {
+
+   var infoo = { openid: info.uid,
+            kfid: "18217766546",
+            tel: info.uid,
+            text: info.text
+       }
+   sendtokf(infoo, function (err, result) {
+           // console.log(result);
+        });
+   info.noReply = true;
+   return ;
+    
+  }
 });
+
+
 //关注
 webot.set('subscribe', {
   pattern: function(info) {

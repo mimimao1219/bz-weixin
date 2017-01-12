@@ -34,5 +34,29 @@ exports.getQRCode = function (req, res, next) {
    }  
 };
 
+//给客服发送消息 api
+exports.sendText = function (req, res, next) {
+    var QueryStr = tools.myDecipheriv(req.body.QueryStr,config);
+    var querystr=JSON.parse(QueryStr);
+    var token= querystr.token;
+     if (token===config.bztoken&&querystr!=null&&querystr.openid!=null&&querystr.text!=null){
+         weixinApi.sendText(querystr.openid, querystr.text,function (err, result){
+
+         var jurl = tools.myCipheriv(JSON.stringify(result),config);
+         res.send({Status: 0,MsgStr: "请求成功!", ResultData: jurl});
+         });   
+   }else{
+     res.send({Status: -1,MsgStr: "这是非法请求!"});
+   }  
+};
+
+
+
+
+
+
+
+
+				
 
 

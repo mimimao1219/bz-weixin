@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>车位信息</title>
+    <link href="../public/stylesheets/mui.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+	<div class="mui-content"style="margin-top:15px;">
+		<label style="margin-left:10px;">车主姓名:</label>
+		<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">
+			<input id='username' name='username' type="text" value='<%=ParkingOrder.username %>' class="mui-input-clear" placeholder="车主姓名">		
+		</div>			
+		<label style="margin-left:10px;">车牌号码:</label>		
+		<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">
+			<input id='plate_number' name='plate_number' type="text" value='<%=ParkingOrder.plate_number %>' class="mui-input-clear" placeholder="车牌号码">
+		</div>	
+		<label style="margin-left:10px;">预订车位:</label>
+		<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">
+			<input id='name' name='name' type="text" value='<%=ParkingOrder.name %>' class="mui-input-clear" placeholder="车辆位置">
+		</div>
+		<label style="margin-left:10px;">预订时间:</label>
+				<div class="mui-input-row"style="margin-left:90px;margin-top:-30px;width: 215px;">
+					<input id='reserve_at' name='reserve_at' type="text" value='<%=ParkingOrder.reserve_at_ago() %>' class="mui-input-clear" >			    
+		        </div>			
+     <div id="qrcode" class="mui-input-row" style="width:200px; height:200px; margin-left:70px;margin-top:10px;"></div>
+</div>
+
+</body>
+	<script type="text/javascript" src="../public/javascripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../public/javascripts/qrcode.min.js"></script>
+	<script type="text/javascript">
+     var qrcode = new QRCode(document.getElementById("qrcode"), {
+	   width : 200,
+	   height : 200
+       });
+	   
+	   	 //  alert("<%=ParkingOrder.text%>");
+	   qrcode.clear(); // 清除二维码
+	   qrcode.makeCode("<%=ParkingOrder.text%>");
+
+	</script>
+
+</html>

@@ -18,6 +18,7 @@ var ParkingModel = require('../models').Parking;
 var ParkingOrderModel = require('../models').ParkingOrder;
 var CarModel = require('../models').Car;
 var sendQyMsg = require('../middlewares/auth').sendQyMsg;
+var weixinApi        = require('../common/tools').weixinApi;
 
 //预约车位 
 exports.create = function (req, res, next) {	
@@ -100,12 +101,24 @@ exports.put = function (req, res, next) {
     parkingOrder.state='1';
     parkingOrder.update_name=req.session.user.username;
     parkingOrder.save( function (err, order) {
-        //发送消息
+        //发送消息管理员
         var ooder = _.pick(order, ['_id', 'username', 'tel', 'plate_number', 'reserve_at','name']);
         //console.log(ooder);
         sendQyMsg(ooder, function (err, result) {
             console.log(result);
-        })
+        });
+       //发送消息给客户
+        var url = 'http://' + req.hostname + '/park/' + order._id ;
+		var data = {
+						"first": { "value":order.username+"您的"+order.plate_number+"车位预定成功", "color": "#174177" },
+						"keyword1": { "value": order.name, "color": "#173177" },
+                        "keyword2": { "value": order.reserve_at_ago(), "color": "#172177" },
+						"remark": { "value": "停车时请点开详情，以便工作人员处理谢谢。", "color": "#171177" }
+					};
+          weixinApi.sendTemplate(order.open_id, config.weixin.templateId_park, url, data, function (err, result) {
+					 	console.log(result);
+			});  
+
     });
     //减少车位数量
     ParkingModel.update({name: req.body.name }, { $inc: { num: -1 }}, { multi: true }, function (err, result) {
@@ -120,7 +133,21 @@ exports.put = function (req, res, next) {
 
 }
 //更新预约车位
-exports.update = function (req, res, next) {
+exports.show = function (req, res, next) {
+     var id = req.params.tid;
+     ParkingOrderModel.findOne({_id: id}, function (err, parkingOrder) {
+         if (err) {return res.render404('此停车信息不存在或已被删除。');}
+         var dd = '3'
+         if (parkingOrder.state==='1'){ dd = '2';};
+         if (parkingOrder.state==='2'){ dd = '3';};
+
+         var text = '{"action":"park_update","id":"'+parkingOrder._id+'","state":"'+dd+'"}';
+         //console.log(text);
+         parkingOrder.text=  tools.myCipheriv(text,config);       
+         res.render('park/show', {
+                        ParkingOrder: parkingOrder
+     });
+   });
 
 }
 

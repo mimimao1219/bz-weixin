@@ -59,12 +59,9 @@ var config = {
     appSecret: 'ae9b79a09a05aef3ff0b72e21174a2d0',
     appToken: 'mimimao',
     jsdkToken: '',
-    templateId: 'ValECG0NODDNWsthxekCyJ_ux90KyZrz7rEZ2hLAGmI',
+    templateId_park: 'gI_cVByPz8uICuf9QiA9MI11FVfx38tTcFh6I0HcxRk',
  	},
-   //QYiXSs8xkMYJKF4ogqzr_UCMtXoJSnImVMgrFQlMlOUekbhLwV3QHkr8QlZdSl8KJ45N5AD5Pf1CGL9G4y1d-yE1IAxmajElXGWOGfxW2KeCQGVUfk6QUBUDOVUwfEx0PBEgAFAGSV
- 	//https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQGn7zoAAAAAAAAAASxodHRwOi8vd2VpeGluLnFxLmNvbS9xLzRraW9jT25sWHprbW1rbFk1R0RpAAIEMrI3WAMEAAAAAA==
-   //
-   //ValECG0NODDNWsthxekCyJ_ux90KyZrz7rEZ2hLAGmI
+
  
  	bztoken: 'bz-weixin1219',
  	key:'4V38HpUfCXzVOadHG-z4soDPohpn',
