@@ -60,7 +60,8 @@ exports.login = function (req, res, next) {
 	UserModel.findOne({ open_id: openid }, null, function (err, user) {		
 		user.tel=tel;
 		//增加获取车辆信息接口
-		getUserInfo('18900167332',function (err, mcars){
+		//getUserInfo('18900167332',function (err, mcars){
+		getUserInfo(tel,function (err, mcars){
 
           if (mcars){
 			 JSON.parse(mcars).map(function (mycar) {
