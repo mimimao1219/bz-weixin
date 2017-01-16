@@ -12,7 +12,7 @@ var config = {
   keywords: '预约停车',
   site_static_host: '', // 静态文件存储域名
   // 设置域名
-  host: 'localhost',
+  host: 'http://webot-bz.ittun.com',
 
   // mongodb 配置
   db: 'mongodb://127.0.0.1/bz_weixin',

@@ -119,18 +119,26 @@ app.use(busboy({
 }));
 
 app.use('/', webRouter);
-// //对发来的消息预处理
-// webot.beforeReply(function load_user(info, next) {
-//   //console.log(info);
-//   UserModel.findOne({ open_id: info.uid }, null, function (err, user) {
-// 			if (user) {
-//         info.user = user;
-//         next();
-//       }
-// 		});
-//     console.log("我来也1"+info.param.eventKey);
-//   next();
-// });
+//对发来的消息预处理
+webot.beforeReply(function load_user(info, next) {
+  //console.log(info);
+  UserModel.findOne({ open_id: info.uid }, null, function (err, user) {
+			if (user) {
+        info.user = user;
+        //更换售后
+        if (info.param.eventKey.length <21) {
+        if (user.channel!=info.param.eventKey){
+            user.channel=info.param.eventKey;
+            //需要写日志
+            user.save();
+        }
+      }
+        next();
+      }
+		});
+    //console.log("我来也1"+info.param.eventKey);
+  next();
+});
 //企业客服
 webot.set('kh', {
   pattern: function(info) {
@@ -138,14 +146,26 @@ webot.set('kh', {
   },
   handler: function(info) {
 
-   var infoo = { openid: info.uid,
-            kfid: "18217766546",
-            tel: info.uid,
-            text: info.text
-       }
-   sendtokf(infoo, function (err, result) {
-           // console.log(result);
-        });
+    UserModel.findOne({ open_id: info.uid }, null, function (err, user) {
+     if (user){
+        var infoo = { openid: info.uid,
+                  kfid: user.channel,
+                  text: info.text
+            }
+        sendtokf(infoo, function (err, result) {
+                // console.log(result);
+              });
+       }else{
+      //没有客服响应
+         var infoo = { openid: info.uid,
+                  kfid: "18217766546",
+                  text: info.text
+            }
+         sendtokf(infoo, function (err, result) {
+                // console.log(result);
+              });
+       } 
+      });
    info.noReply = true;
    return ;
     
@@ -164,8 +184,10 @@ webot.set('subscribe', {
         info.user = user;
 			} else {
         var myUser = new UserModel();
+        var keys = info.param.eventKey;
+        var s = keys.indexOf("_");
         myUser.open_id=info.uid;
-        myUser.channel=info.param.eventKey;
+        myUser.channel=keys.substr(s+1);
         myUser.create_at=info.createTime;
         myUser.save();
 			}
@@ -173,8 +195,8 @@ webot.set('subscribe', {
     //console.log(info.param.eventKey);
     info.reply = {
         title: '欢迎关注订阅奔驰微信服务号',
-        url: 'http://webot-bz.ittun.com/sign?openid='+info.uid,
-        picUrl: 'http://webot-bz.ittun.com/public/img/eclass.jpg',
+        url: config.host+'/sign?openid='+info.uid,
+        picUrl: config.host+'/public/img/eclass.jpg',
         description: '为了更好的服务您请绑定手机号',
   }
     return ;
@@ -199,7 +221,7 @@ webot.set('unsubscribe', {
 
 
 // 接管消息请求
-webot.watch(app, { token: 'mimimao' });
+webot.watch(app, { token: config.weixin.appToken });
 
 
 // error handler

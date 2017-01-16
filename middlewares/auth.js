@@ -63,7 +63,7 @@ exports.login = function (req, res, next) {
 		//getUserInfo('18900167332',function (err, mcars){
 		getUserInfo(tel,function (err, mcars){
 
-          if (mcars){
+          if (mcars&&mcars.length>5){
 			 JSON.parse(mcars).map(function (mycar) {
 				 var car = new CarModel();
 				 car.open_id=user.open_id;
@@ -79,11 +79,10 @@ exports.login = function (req, res, next) {
              return	res.redirect(r_url);
 		  }else{
 			req.session.user=user; 
-			return	res.redirect(r_url);
+			return	res.redirect('/mycar/list');
 		  }
 		});
-
-        
+      
        
 		});
 	}else{
