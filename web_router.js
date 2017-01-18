@@ -22,10 +22,11 @@ router.get('/sign', auth.sign);
 router.post('/login', auth.login);
 router.post('/checkCode', auth.checkCode);
 router.get('/mycar/list',auth.userRequired, mycar.list);
+router.post('/mycar/getCar', mycar.getCar);
 
 router.post('/mycar/update', mycar.update);
 router.get('/mycar/bzshow', mycar.bzshow);
-router.get('/park/create',auth.userRequired, park.create);
+router.get('/park/create',auth.userRequired, auth.carRequired,park.create);
 router.post('/park/create', park.put);// 保存新建的记录
 //router.post('/park/update', park.update);//更新维修记录
 router.get('/park/:tid', park.show);

@@ -30,8 +30,8 @@ exports.userRequired = function (req, res, next) {
 			if (user&&user.tel) {
 			   req.session.user=user;
         	   next();
-            }else{
-				req.session.user=user;
+            }else{				
+				req.session.open_id=openid;
 				return	res.redirect('/sign?r_url='+req.originalUrl);
 			}
 		});
@@ -40,9 +40,19 @@ exports.userRequired = function (req, res, next) {
 	//next();
 
 };
+//检查是否有车
+exports.carRequired = function (req, res, next) {
+	if (req.session.user&&req.session.user.kind&&req.session.user.kind==='bz') {
+       next();
+	}else{
+	  return	res.redirect('/mycar/list');
+    }
+
+};
+
 
 exports.sign = function (req, res, next) {
-	var openid = req.query.openid||req.session.user.open_id;
+	var openid = req.query.openid||req.session.open_id;
 	var r_url = req.query.r_url||'/mycar/list'  ;
 	var err = 0;
 	err = req.query.err;
@@ -64,6 +74,7 @@ exports.login = function (req, res, next) {
 		getUserInfo(tel,function (err, mcars){
 
           if (mcars&&mcars.length>5){
+			  //获得用户信息
 			 JSON.parse(mcars).map(function (mycar) {
 				 var car = new CarModel();
 				 car.open_id=user.open_id;
@@ -73,12 +84,15 @@ exports.login = function (req, res, next) {
 				 car.plate_number=mycar.plate_number;
 				 car.save();
 				 user.username=mycar.name;
+				 user.kind='bz';
 			 });
 			 req.session.user=user;
 		     user.save();
              return	res.redirect(r_url);
 		  }else{
+			//没有获得用户信息
 			req.session.user=user; 
+			user.save();
 			return	res.redirect('/mycar/list');
 		  }
 		});

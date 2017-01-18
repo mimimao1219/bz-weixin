@@ -119,6 +119,9 @@ app.use(busboy({
 }));
 
 app.use('/', webRouter);
+
+
+
 //对发来的消息预处理
 webot.beforeReply(function load_user(info, next) {
   //console.log(info);
@@ -128,6 +131,7 @@ webot.beforeReply(function load_user(info, next) {
         //更换售后
         if (info.param.eventKey.length <21) {
         if (user.channel!=info.param.eventKey){
+            user.channel_s=user.channel;
             user.channel=info.param.eventKey;
             //需要写日志
             user.save();
@@ -139,6 +143,9 @@ webot.beforeReply(function load_user(info, next) {
     //console.log("我来也1"+info.param.eventKey);
   next();
 });
+// load rules
+//require('./rules')(webot);
+
 //企业客服
 webot.set('kh', {
   pattern: function(info) {
@@ -188,6 +195,8 @@ webot.set('subscribe', {
         var s = keys.indexOf("_");
         myUser.open_id=info.uid;
         myUser.channel=keys.substr(s+1);
+        myUser.channel_s=keys.substr(s+1);
+        myUser.channel_one=keys.substr(s+1);
         myUser.create_at=info.createTime;
         myUser.save();
 			}

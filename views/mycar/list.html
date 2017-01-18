@@ -14,7 +14,12 @@
 		<%if (cars!=null){%>
 			<%- partial('./_car', {collection:cars, as:'car'}) %>
 		<%}else{%>
+         <form  action='/mycar/getCar' method='post'>
          <label style="margin-left:10px;">对不起您还没有添加车辆信息请添加</label>
+		 <div class="mui-content-padded">
+		        	<button type="submit" class="mui-btn mui-btn-primary mui-btn-block"style="font-size: 20px;padding:5px 10px;height:45px;">获取车辆信息</button>
+		 </div>
+         </form>
 		<%}%>	
 	</div>
 
