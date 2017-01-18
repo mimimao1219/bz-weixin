@@ -65,7 +65,7 @@ exports.login = function (req, res, next) {
 	var r_url = req.body.r_url;
 	//需要验证码校验
 	var code = req.session.checkCode;
-    if (code ===req.body.checkCode){
+    if (code ===req.body.checkCode&&tel){
 	
 	UserModel.findOne({ open_id: openid }, null, function (err, user) {		
 		user.tel=tel;

@@ -50,6 +50,46 @@ exports.sendText = function (req, res, next) {
    }  
 };
 
+//给客服发送消息 api
+exports.sendKh = function (req, res, next) {
+    var QueryStr = tools.myDecipheriv(req.body.QueryStr,config);
+    var querystr=JSON.parse(QueryStr);
+    var token= querystr.token;
+     if (token===config.bztoken&&querystr!=null&&querystr.openid!=null&&querystr.message!=null){
+
+        switch(querystr.message.msgtype)
+          {
+          case "text":
+            var mymessage = querystr.message.text;
+            weixinApi.sendText(querystr.openid, mymessage.content,function (err, result){
+            var re = tools.myCipheriv(JSON.stringify(result),config);
+            res.send({Status: 0,MsgStr: "请求成功!", ResultData: re});
+            }); 
+            break;
+          case "image":
+            var mymessage = querystr.message.image;
+            weixinApi.sendImage(querystr.openid, image.media_id,function (err, result){
+            var re = tools.myCipheriv(JSON.stringify(result),config);
+            res.send({Status: 0,MsgStr: "请求成功!", ResultData: re});
+            }); 
+            break;
+          case "voice":
+            var mymessage = querystr.message.voice;
+            weixinApi.sendVoice(querystr.openid, voice.media_id,function (err, result){
+            var re = tools.myCipheriv(JSON.stringify(result),config);
+            res.send({Status: 0,MsgStr: "请求成功!", ResultData: re});
+            }); 
+            break;
+          //default:
+  
+        }
+         
+
+   }else{
+     res.send({Status: -1,MsgStr: "这是非法请求!"});
+   }  
+};
+
 
 
 

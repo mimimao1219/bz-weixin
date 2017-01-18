@@ -368,3 +368,331 @@ Started 2017-01-17T08:32:34.737Z GET / 111.30.132.208
 
 Started 2017-01-17T08:32:40.313Z POST /login 61.158.152.133
 [2017-01-17 16:32:40.316] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"o8fcDwY3DRdljjtbZ1lGTw36ld4I"},"options":{},"collectionName":"users"} [32m1ms[39m
+[2017-01-18 14:01:02.161] [INFO] cheese - repair listening on port 3000
+[2017-01-18 14:01:02.163] [INFO] cheese - God bless love....
+[2017-01-18 14:01:02.164] [INFO] cheese - You can debug your app with http://webot-bz.ittun.com:3000
+[2017-01-18 14:01:02.164] [INFO] cheese - 
+[2017-01-18 14:19:43.568] [INFO] cheese - repair listening on port 3000
+[2017-01-18 14:19:43.571] [INFO] cheese - God bless love....
+[2017-01-18 14:19:43.571] [INFO] cheese - You can debug your app with http://webot-bz.ittun.com:3000
+[2017-01-18 14:19:43.571] [INFO] cheese - 
+[2017-01-18 14:21:10.198] [INFO] cheese - 
+
+Started 2017-01-18T06:21:10.197Z POST /?signature=3c961976dd8e7d283b1e3f4348d84435cb1c98b1&timestamp=1484720338&nonce=1681865628&openid=oJme-szsGYjRcIMIFxvvt5XAI8qo 58.247.206.142
+[2017-01-18 14:21:10.235] [INFO] cheese - Completed 200 [32m(38ms)[39m
+[2017-01-18 14:21:10.238] [DEBUG] cheese - [35mMONGO[39m users.[34mremove[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m25ms[39m
+[2017-01-18 14:21:10.239] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m9ms[39m
+[2017-01-18 14:21:22.318] [INFO] cheese - 
+
+Started 2017-01-18T06:21:22.318Z POST /?signature=3bdb8b86b7a22e73fe691c5cebc095c3f37e3357&timestamp=1484720350&nonce=1619820538&openid=oJme-szsGYjRcIMIFxvvt5XAI8qo 58.247.206.152
+[2017-01-18 14:21:22.325] [INFO] cheese - Completed 200 [32m(7ms)[39m
+[2017-01-18 14:21:22.326] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m2ms[39m
+[2017-01-18 14:21:22.326] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m1ms[39m
+[2017-01-18 14:21:27.185] [INFO] cheese - 
+
+Started 2017-01-18T06:21:27.185Z POST /?signature=5ae50f955516ccee49f694e75781c601fed8e973&timestamp=1484720355&nonce=2026262764&openid=oJme-szsGYjRcIMIFxvvt5XAI8qo 58.247.206.144
+[2017-01-18 14:21:27.192] [INFO] cheese - Completed 200 [32m(7ms)[39m
+[2017-01-18 14:21:27.192] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m1ms[39m
+[2017-01-18 14:21:27.941] [INFO] cheese - 
+
+Started 2017-01-18T06:21:27.940Z GET / 123.151.176.198
+[2017-01-18 14:21:27.944] [INFO] cheese - Completed 401 [32m(4ms)[39m
+[2017-01-18 14:21:28.166] [INFO] cheese - 
+
+Started 2017-01-18T06:21:28.165Z GET /park/create?code=0113uBn51ksXzO1Vmkn51RWLn513uBnn&state=1 218.28.32.98
+[2017-01-18 14:21:28.184] [INFO] cheese - 
+
+Started 2017-01-18T06:21:28.184Z GET / 111.30.131.144
+[2017-01-18 14:21:28.187] [INFO] cheese - Completed 401 [32m(3ms)[39m
+[2017-01-18 14:21:28.482] [DEBUG] cheese - [35mMONGO[39m tokens.[34mupdate[39m {"conditions":{"openid":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"doc":{"$set":{"create_at":"1484720488477","scope":"snsapi_base","openid":"oJme-szsGYjRcIMIFxvvt5XAI8qo","refresh_token":"PFzNDp4ZMO-lgTOpsQpLjuzsgp7pEZwq_fKZN9WSJxcKX0Y7sDo1oK9sdyJYbrwW43vgNCLKPtCOacvoYN8MxBZvY70Qq9iNKErihOK1xCg","expires_in":7200,"access_token":"4swslJI10DvtzItGoMeTcDPYG8mbvMymvBnuUEuieMslIZeXMkINNqxBD6ej-SO2bT-_FKGneX7jXMASt0Z75EQVe7VQGzKpM1XX0h7Gzic"}},"options":{"upsert":true},"collectionName":"tokens"} [32m1ms[39m
+[2017-01-18 14:21:28.483] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m1ms[39m
+[2017-01-18 14:21:28.487] [INFO] cheese - Completed 302 [32m(322ms)[39m
+[2017-01-18 14:21:30.174] [INFO] cheese - 
+
+Started 2017-01-18T06:21:30.174Z GET /sign?r_url=/park/create?code=0113uBn51ksXzO1Vmkn51RWLn513uBnn&state=1 218.28.32.98
+[2017-01-18 14:21:30.231] [INFO] cheese - Render view sign [32m(53ms)[39m
+[2017-01-18 14:21:30.233] [INFO] cheese - Completed 200 [32m(59ms)[39m
+[2017-01-18 14:21:36.609] [INFO] cheese - 
+
+Started 2017-01-18T06:21:36.609Z GET /park/create 101.226.33.227
+[2017-01-18 14:21:36.717] [INFO] cheese - Completed 302 [32m(108ms)[39m
+[2017-01-18 14:21:36.833] [INFO] cheese - 
+
+Started 2017-01-18T06:21:36.833Z GET /bzshow 101.226.33.227
+[2017-01-18 14:21:36.834] [INFO] cheese - Completed 401 [32m(1ms)[39m
+[2017-01-18 14:21:37.243] [INFO] cheese - 
+
+Started 2017-01-18T06:21:37.243Z GET / 180.153.206.23
+[2017-01-18 14:21:37.244] [INFO] cheese - Completed 401 [32m(1ms)[39m
+[2017-01-18 14:21:41.494] [INFO] cheese - 
+
+Started 2017-01-18T06:21:41.494Z POST /checkCode 171.15.132.111
+[2017-01-18 14:21:41.582] [INFO] cheese - Completed 200 [32m(88ms)[39m
+[2017-01-18 14:21:52.892] [INFO] cheese - 
+
+Started 2017-01-18T06:21:52.892Z POST /login 171.15.132.111
+[2017-01-18 14:21:52.895] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m1ms[39m
+[2017-01-18 14:21:53.837] [INFO] cheese - Completed 302 [32m(944ms)[39m
+[2017-01-18 14:21:54.271] [INFO] cheese - 
+
+Started 2017-01-18T06:21:54.270Z GET /mycar/list 218.28.32.98
+[2017-01-18 14:21:54.276] [DEBUG] cheese - [35mMONGO[39m cars.[34mfind[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"cars"} [32m3ms[39m
+[2017-01-18 14:21:54.292] [INFO] cheese - Render view mycar/list [32m(14ms)[39m
+[2017-01-18 14:21:54.293] [INFO] cheese - Completed 200 [32m(23ms)[39m
+[2017-01-18 14:22:02.570] [INFO] cheese - 
+
+Started 2017-01-18T06:22:02.569Z GET /login 101.226.125.103
+[2017-01-18 14:22:02.571] [INFO] cheese - Completed 401 [32m(2ms)[39m
+[2017-01-18 14:22:15.985] [INFO] cheese - 
+
+Started 2017-01-18T06:22:15.985Z POST /?signature=2b3b39688fdb925d92816ba2c7ecec77e98f38bb&timestamp=1484720404&nonce=481341507&openid=oJme-szsGYjRcIMIFxvvt5XAI8qo 58.247.206.157
+[2017-01-18 14:22:15.989] [INFO] cheese - Completed 200 [32m(4ms)[39m
+[2017-01-18 14:22:15.990] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m1ms[39m
+[2017-01-18 14:22:16.102] [INFO] cheese - 
+
+Started 2017-01-18T06:22:16.102Z GET /park/create?code=031U0OK70MoluJ1TzjK709YIK70U0OKp&state=1 218.28.32.98
+[2017-01-18 14:22:16.104] [INFO] cheese - Completed 302 [32m(2ms)[39m
+[2017-01-18 14:22:16.278] [INFO] cheese - 
+
+Started 2017-01-18T06:22:16.278Z GET /mycar/list 218.28.32.98
+[2017-01-18 14:22:16.281] [DEBUG] cheese - [35mMONGO[39m cars.[34mfind[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"cars"} [32m1ms[39m
+[2017-01-18 14:22:16.285] [INFO] cheese - Render view mycar/list [32m(3ms)[39m
+[2017-01-18 14:22:16.285] [INFO] cheese - Completed 304 [32m(7ms)[39m
+[2017-01-18 14:24:02.425] [INFO] cheese - 
+
+Started 2017-01-18T06:24:02.425Z POST /?signature=2367243e9f196b4b117b793b886afb7366bbd20c&timestamp=1484720510&nonce=1055770555&openid=oJme-szsGYjRcIMIFxvvt5XAI8qo 140.207.54.74
+[2017-01-18 14:24:02.431] [INFO] cheese - Completed 200 [32m(6ms)[39m
+[2017-01-18 14:24:02.432] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m1ms[39m
+[2017-01-18 14:24:02.534] [INFO] cheese - 
+
+Started 2017-01-18T06:24:02.534Z GET /park/create?code=021hIepO1TEky51nlBrO1XeapO1hIep8&state=1 218.28.32.98
+[2017-01-18 14:24:02.536] [INFO] cheese - Completed 302 [32m(2ms)[39m
+[2017-01-18 14:24:03.613] [INFO] cheese - 
+
+Started 2017-01-18T06:24:03.613Z GET /mycar/list 218.28.32.98
+[2017-01-18 14:24:03.617] [DEBUG] cheese - [35mMONGO[39m cars.[34mfind[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"cars"} [32m1ms[39m
+[2017-01-18 14:24:03.622] [INFO] cheese - Render view mycar/list [32m(4ms)[39m
+[2017-01-18 14:24:03.622] [INFO] cheese - Completed 304 [32m(9ms)[39m
+[2017-01-18 14:24:18.876] [INFO] cheese - 
+
+Started 2017-01-18T06:24:18.876Z POST /?signature=b02778e69bb7594cc1538cc7665e44843776b90f&timestamp=1484720527&nonce=624661318&openid=oJme-szsGYjRcIMIFxvvt5XAI8qo 58.247.206.142
+[2017-01-18 14:24:18.879] [INFO] cheese - Completed 200 [32m(3ms)[39m
+[2017-01-18 14:24:18.880] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m1ms[39m
+[2017-01-18 14:24:19.060] [INFO] cheese - 
+
+Started 2017-01-18T06:24:19.060Z GET /park/create?code=041XOwf42IIb2K0CuMe42pmBf42XOwfs&state=1 218.28.32.98
+[2017-01-18 14:24:19.063] [INFO] cheese - Completed 302 [32m(3ms)[39m
+[2017-01-18 14:24:19.227] [INFO] cheese - 
+
+Started 2017-01-18T06:24:19.226Z GET /mycar/list 218.28.32.98
+[2017-01-18 14:24:19.229] [DEBUG] cheese - [35mMONGO[39m cars.[34mfind[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"cars"} [32m1ms[39m
+[2017-01-18 14:24:19.232] [INFO] cheese - Render view mycar/list [32m(2ms)[39m
+[2017-01-18 14:24:19.233] [INFO] cheese - Completed 304 [32m(7ms)[39m
+[2017-01-18 14:24:31.798] [INFO] cheese - repair listening on port 3000
+[2017-01-18 14:24:31.800] [INFO] cheese - God bless love....
+[2017-01-18 14:24:31.800] [INFO] cheese - You can debug your app with http://webot-bz.ittun.com:3000
+[2017-01-18 14:24:31.801] [INFO] cheese - 
+[2017-01-18 14:24:37.584] [INFO] cheese - 
+
+Started 2017-01-18T06:24:37.584Z POST /?signature=a11bddda9fa26ac99e53fb84af58bee8f0b980f3&timestamp=1484720545&nonce=1934633489&openid=oJme-szsGYjRcIMIFxvvt5XAI8qo 58.247.206.157
+[2017-01-18 14:24:37.611] [INFO] cheese - Completed 200 [32m(26ms)[39m
+[2017-01-18 14:24:37.613] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m7ms[39m
+[2017-01-18 14:24:37.734] [INFO] cheese - 
+
+Started 2017-01-18T06:24:37.734Z GET /park/create?code=041qlpH30IvQAF1W1zH30rKmH30qlpHE&state=1 218.28.32.98
+[2017-01-18 14:24:37.974] [DEBUG] cheese - [35mMONGO[39m tokens.[34mupdate[39m {"conditions":{"openid":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"doc":{"$set":{"create_at":"1484720677968","scope":"snsapi_base","openid":"oJme-szsGYjRcIMIFxvvt5XAI8qo","refresh_token":"zTcko38U4wRTj29S4fqFA66MajtvzfPcwZ3OMUCUVveMVd4ruoNh_adYAU9W3hS1ccbdIjJ492uucy-tZMWf9DixH69XMvBfI9Tpadduf6g","expires_in":7200,"access_token":"FZvZzrLpJ3I05b0Z58IBu0jMSoWwFs80ZnHCkLZPP39S_r-gex7Ur2xYj_YQ_COiaL8TnI5g8YAffflAv6LRPBHM-fP8nPHQurF0W-EWGjI"}},"options":{"upsert":true},"collectionName":"tokens"} [32m1ms[39m
+[2017-01-18 14:24:37.976] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m1ms[39m
+[2017-01-18 14:24:37.979] [DEBUG] cheese - [35mMONGO[39m parkingorders.[34mfindOne[39m {"conditions":{"state":{"$in":["1","2"]},"tel":"13700882704"},"options":{},"collectionName":"parkingorders"} [32m1ms[39m
+[2017-01-18 14:24:37.984] [DEBUG] cheese - [35mMONGO[39m cars.[34mfind[39m {"conditions":{"tel":"13700882704"},"options":{},"collectionName":"cars"} [32m2ms[39m
+[2017-01-18 14:24:37.986] [DEBUG] cheese - [35mMONGO[39m parkings.[34mfindOne[39m {"conditions":{},"options":{},"collectionName":"parkings"} [32m3ms[39m
+[2017-01-18 14:24:38.081] [INFO] cheese - Render view park/new [32m(93ms)[39m
+[2017-01-18 14:24:38.083] [INFO] cheese - Completed 200 [32m(349ms)[39m
+[2017-01-18 14:26:34.686] [INFO] cheese - 
+
+Started 2017-01-18T06:26:34.686Z POST /?signature=b3ff249a198c5f77f8b8ee48ba1102965a4ac8db&timestamp=1484720662&nonce=1953708674&openid=oJme-szsGYjRcIMIFxvvt5XAI8qo 58.247.206.147
+[2017-01-18 14:26:34.694] [INFO] cheese - Completed 200 [32m(8ms)[39m
+[2017-01-18 14:26:34.694] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m1ms[39m
+[2017-01-18 14:26:34.870] [INFO] cheese - 
+
+Started 2017-01-18T06:26:34.870Z GET /park/create?code=041FRfwm1Dnrvk0M1Uzm1Uxgwm1FRfwA&state=1 218.28.32.98
+[2017-01-18 14:26:34.873] [DEBUG] cheese - [35mMONGO[39m parkingorders.[34mfindOne[39m {"conditions":{"state":{"$in":["1","2"]},"tel":"13700882704"},"options":{},"collectionName":"parkingorders"} [32m1ms[39m
+[2017-01-18 14:26:34.874] [DEBUG] cheese - [35mMONGO[39m cars.[34mfind[39m {"conditions":{"tel":"13700882704"},"options":{},"collectionName":"cars"} [32m0ms[39m
+[2017-01-18 14:26:34.875] [DEBUG] cheese - [35mMONGO[39m parkings.[34mfindOne[39m {"conditions":{},"options":{},"collectionName":"parkings"} [32m1ms[39m
+[2017-01-18 14:26:34.880] [INFO] cheese - Render view park/new [32m(4ms)[39m
+[2017-01-18 14:26:34.881] [INFO] cheese - Completed 200 [32m(11ms)[39m
+[2017-01-18 14:26:46.342] [INFO] cheese - repair listening on port 3000
+[2017-01-18 14:26:46.345] [INFO] cheese - God bless love....
+[2017-01-18 14:26:46.345] [INFO] cheese - You can debug your app with http://webot-bz.ittun.com:3000
+[2017-01-18 14:26:46.345] [INFO] cheese - 
+[2017-01-18 14:26:49.528] [INFO] cheese - 
+
+Started 2017-01-18T06:26:49.528Z POST /?signature=ad6f65335bbbf34078729afeafc7592a0dc3d1d5&timestamp=1484720677&nonce=315012747&openid=oJme-szsGYjRcIMIFxvvt5XAI8qo 58.247.206.147
+[2017-01-18 14:26:49.554] [INFO] cheese - Completed 200 [32m(26ms)[39m
+[2017-01-18 14:26:49.557] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m7ms[39m
+[2017-01-18 14:26:49.689] [INFO] cheese - 
+
+Started 2017-01-18T06:26:49.689Z GET /park/create?code=0413Xm142AK4gK0bOs542OOq1423Xm1B&state=1 218.28.32.98
+[2017-01-18 14:26:49.876] [DEBUG] cheese - [35mMONGO[39m tokens.[34mupdate[39m {"conditions":{"openid":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"doc":{"$set":{"create_at":"1484720809871","scope":"snsapi_base","openid":"oJme-szsGYjRcIMIFxvvt5XAI8qo","refresh_token":"zYmqR8Sm2j0bS9AyIbfIzcmc8ypbBxBdAyWDc7cWeUL2j8vFSfnEtZcvL04dxw7AHAdhFAD51g2Ajlkwjf174iUsdgs4ReQ2DVWyy58qDHQ","expires_in":7200,"access_token":"sI_CtvaHHy9_RJj09YIdlaI24DVFRqTzqraH9OBKJyKzYWUsIly2AzyjNYG30u4nFk7RKULwh0HMpWUCUw9QjF6ONdqkV1ENKUoNDFZ4mYs"}},"options":{"upsert":true},"collectionName":"tokens"} [32m1ms[39m
+[2017-01-18 14:26:49.878] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m1ms[39m
+[2017-01-18 14:26:49.881] [DEBUG] cheese - [35mMONGO[39m parkingorders.[34mfindOne[39m {"conditions":{"state":{"$in":["1","2"]},"tel":"13700882704"},"options":{},"collectionName":"parkingorders"} [32m1ms[39m
+[2017-01-18 14:26:49.886] [DEBUG] cheese - [35mMONGO[39m cars.[34mfind[39m {"conditions":{"tel":"13700882704"},"options":{},"collectionName":"cars"} [32m2ms[39m
+[2017-01-18 14:26:49.888] [DEBUG] cheese - [35mMONGO[39m parkings.[34mfindOne[39m {"conditions":{},"options":{},"collectionName":"parkings"} [32m3ms[39m
+[2017-01-18 14:26:49.901] [INFO] cheese - Render view park/new [32m(11ms)[39m
+[2017-01-18 14:26:49.903] [INFO] cheese - Completed 200 [32m(214ms)[39m
+[2017-01-18 14:26:54.259] [INFO] cheese - 
+
+Started 2017-01-18T06:26:54.259Z POST /park/create 171.15.132.111
+[2017-01-18 14:26:54.300] [INFO] cheese - Completed 302 [32m(41ms)[39m
+[2017-01-18 14:26:54.301] [DEBUG] cheese - [35mMONGO[39m parkings.[34mupdate[39m {"conditions":{"name":"新郑机场停车位"},"doc":{"$inc":{"num":-1}},"options":{"multi":true},"collectionName":"parkings"} [32m19ms[39m
+[2017-01-18 14:26:54.459] [INFO] cheese - 
+
+Started 2017-01-18T06:26:54.459Z GET /park/create 218.28.32.98
+[2017-01-18 14:26:54.462] [DEBUG] cheese - [35mMONGO[39m parkingorders.[34mfindOne[39m {"conditions":{"state":{"$in":["1","2"]},"tel":"13700882704"},"options":{},"collectionName":"parkingorders"} [32m1ms[39m
+[2017-01-18 14:26:54.466] [INFO] cheese - Render view park/new [32m(3ms)[39m
+[2017-01-18 14:26:54.467] [INFO] cheese - Completed 200 [32m(8ms)[39m
+[2017-01-18 14:26:54.867] [INFO] cheese - 
+
+Started 2017-01-18T06:26:54.867Z POST /?signature=5ec560997101b292538714a6df1c432aa987a9e0&timestamp=1484720683&nonce=1612539813&openid=oJme-szsGYjRcIMIFxvvt5XAI8qo 58.247.206.152
+[2017-01-18 14:26:54.874] [INFO] cheese - Completed 200 [32m(7ms)[39m
+[2017-01-18 14:27:48.499] [INFO] cheese - repair listening on port 3000
+[2017-01-18 14:27:48.501] [INFO] cheese - God bless love....
+[2017-01-18 14:27:48.501] [INFO] cheese - You can debug your app with http://webot-bz.ittun.com:3000
+[2017-01-18 14:27:48.502] [INFO] cheese - 
+[2017-01-18 14:29:09.676] [INFO] cheese - 
+
+Started 2017-01-18T06:29:09.676Z GET /park/587f0aaee06ff1204a34b74b 218.28.32.98
+[2017-01-18 14:29:09.694] [DEBUG] cheese - [35mMONGO[39m parkingorders.[34mfindOne[39m {"conditions":{"_id":"587f0aaee06ff1204a34b74b"},"options":{},"collectionName":"parkingorders"} [32m6ms[39m
+[2017-01-18 14:29:09.757] [INFO] cheese - Render view park/show [32m(55ms)[39m
+[2017-01-18 14:29:09.760] [INFO] cheese - Completed 200 [32m(84ms)[39m
+[2017-01-18 14:29:17.868] [INFO] cheese - 
+
+Started 2017-01-18T06:29:17.868Z POST /?signature=3854a23a1c890efb3b100adf12a9e1ceac85903a&timestamp=1484720826&nonce=1953795683&openid=oJme-szsGYjRcIMIFxvvt5XAI8qo 58.247.206.139
+[2017-01-18 14:29:17.880] [INFO] cheese - Completed 200 [32m(12ms)[39m
+[2017-01-18 14:29:17.889] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m9ms[39m
+[2017-01-18 14:29:18.104] [INFO] cheese - 
+
+Started 2017-01-18T06:29:18.104Z GET /park/create?code=001MRjrB1KdL4i0YO4qB1i1grB1MRjrV&state=1 218.28.32.98
+[2017-01-18 14:29:18.315] [DEBUG] cheese - [35mMONGO[39m tokens.[34mupdate[39m {"conditions":{"openid":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"doc":{"$set":{"create_at":"1484720958311","scope":"snsapi_base","openid":"oJme-szsGYjRcIMIFxvvt5XAI8qo","refresh_token":"rWzvrEc6wsZ_OEtuB1OxT36pfDZW72FFrZflUqApMn1XuP21rSE_RFJnpg6sZGn_fBSKMkAuoT1-1aT84lw5_MD24OOELhn1Uxxp5jAmCBw","expires_in":7200,"access_token":"dAlqxZiOq0TdDtYejZ6g1XH48_-V02FqSZcspors7ET4PiLygn_Ov4PAHhQI-xMZtmRclJ_G5DX-0Zn0uzG7xRhlyat3yqvv8aib6VRAOZA"}},"options":{"upsert":true},"collectionName":"tokens"} [32m1ms[39m
+[2017-01-18 14:29:18.317] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m1ms[39m
+[2017-01-18 14:29:18.319] [DEBUG] cheese - [35mMONGO[39m parkingorders.[34mfindOne[39m {"conditions":{"state":{"$in":["1","2"]},"tel":"13700882704"},"options":{},"collectionName":"parkingorders"} [32m1ms[39m
+[2017-01-18 14:29:18.326] [INFO] cheese - Render view park/new [32m(6ms)[39m
+[2017-01-18 14:29:18.327] [INFO] cheese - Completed 200 [32m(223ms)[39m
+[2017-01-18 14:29:21.908] [INFO] cheese - 
+
+Started 2017-01-18T06:29:21.908Z POST /?signature=0fc18ee3504ce3f10997bc99ef3e714f02b50ae2&timestamp=1484720830&nonce=2016045429&openid=oJme-szsGYjRcIMIFxvvt5XAI8qo 58.247.206.142
+[2017-01-18 14:29:21.916] [INFO] cheese - Completed 200 [32m(8ms)[39m
+[2017-01-18 14:29:21.917] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m1ms[39m
+[2017-01-18 14:29:22.014] [INFO] cheese - 
+
+Started 2017-01-18T06:29:22.014Z GET /mycar/list?code=031JBlNH0Dtb7k2v9COH0YVoNH0JBlN4&state=1 218.28.32.98
+[2017-01-18 14:29:22.019] [DEBUG] cheese - [35mMONGO[39m cars.[34mfind[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"cars"} [32m2ms[39m
+[2017-01-18 14:29:22.026] [INFO] cheese - Render view mycar/list [32m(6ms)[39m
+[2017-01-18 14:29:22.027] [INFO] cheese - Completed 200 [32m(13ms)[39m
+[2017-01-18 14:30:00.504] [DEBUG] cheese - [35mMONGO[39m parkingorders.[34mfind[39m {"conditions":{"state":"1","reserve_at":{"$gt":"2017-01-18T03:30:00.000Z","$lt":"2017-01-18T06:30:00.000Z"}},"options":{},"collectionName":"parkingorders"} [32m1ms[39m
+[2017-01-18 14:31:22.858] [INFO] cheese - 
+
+Started 2017-01-18T06:31:22.858Z POST /?signature=667e84c3c5c20a9fc3fddb367cb366eea0b3c608&timestamp=1484720951&nonce=983952734&openid=oJme-szsGYjRcIMIFxvvt5XAI8qo 58.247.206.152
+[2017-01-18 14:31:22.862] [INFO] cheese - Completed 200 [32m(4ms)[39m
+[2017-01-18 14:31:22.862] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m1ms[39m
+[2017-01-18 14:31:28.461] [INFO] cheese - 
+
+Started 2017-01-18T06:31:28.461Z GET /park/create?code=011euGfc10hevs03hgic14gwfc1euGfa&state=1 218.28.32.98
+[2017-01-18 14:31:28.464] [DEBUG] cheese - [35mMONGO[39m parkingorders.[34mfindOne[39m {"conditions":{"state":{"$in":["1","2"]},"tel":"13700882704"},"options":{},"collectionName":"parkingorders"} [32m1ms[39m
+[2017-01-18 14:31:28.468] [INFO] cheese - Render view park/new [32m(3ms)[39m
+[2017-01-18 14:31:28.469] [INFO] cheese - Completed 200 [32m(8ms)[39m
+[2017-01-18 14:33:34.751] [INFO] cheese - 
+
+Started 2017-01-18T06:33:34.750Z POST /park/create 171.15.132.111
+[2017-01-18 14:33:34.765] [DEBUG] cheese - [35mMONGO[39m parkingorders.[34mfindOne[39m {"conditions":{"_id":"587f0aaee06ff1204a34b74b"},"options":{},"collectionName":"parkingorders"} [32m1ms[39m
+[2017-01-18 14:33:34.778] [DEBUG] cheese - [35mMONGO[39m parkings.[34mupdate[39m {"conditions":{"name":"新郑机场停车位"},"doc":{"$inc":{"num":1}},"options":{"multi":true},"collectionName":"parkings"} [32m3ms[39m
+[2017-01-18 14:33:34.778] [INFO] cheese - Completed 302 [32m(28ms)[39m
+[2017-01-18 14:33:35.156] [INFO] cheese - 
+
+Started 2017-01-18T06:33:35.156Z GET /park/create 218.28.32.98
+[2017-01-18 14:33:35.161] [DEBUG] cheese - [35mMONGO[39m parkingorders.[34mfindOne[39m {"conditions":{"state":{"$in":["1","2"]},"tel":"13700882704"},"options":{},"collectionName":"parkingorders"} [32m2ms[39m
+[2017-01-18 14:33:35.163] [DEBUG] cheese - [35mMONGO[39m cars.[34mfind[39m {"conditions":{"tel":"13700882704"},"options":{},"collectionName":"cars"} [32m1ms[39m
+[2017-01-18 14:33:35.165] [DEBUG] cheese - [35mMONGO[39m parkings.[34mfindOne[39m {"conditions":{},"options":{},"collectionName":"parkings"} [32m2ms[39m
+[2017-01-18 14:33:35.176] [INFO] cheese - Render view park/new [32m(10ms)[39m
+[2017-01-18 14:33:35.176] [INFO] cheese - Completed 200 [32m(20ms)[39m
+[2017-01-18 14:33:40.361] [INFO] cheese - 
+
+Started 2017-01-18T06:33:40.361Z POST /park/create 171.15.132.111
+[2017-01-18 14:33:40.384] [INFO] cheese - Completed 302 [32m(23ms)[39m
+[2017-01-18 14:33:40.385] [DEBUG] cheese - [35mMONGO[39m parkings.[34mupdate[39m {"conditions":{"name":"新郑机场停车位"},"doc":{"$inc":{"num":-1}},"options":{"multi":true},"collectionName":"parkings"} [32m16ms[39m
+[2017-01-18 14:33:40.580] [INFO] cheese - 
+
+Started 2017-01-18T06:33:40.580Z GET /park/create 218.28.32.98
+[2017-01-18 14:33:40.583] [DEBUG] cheese - [35mMONGO[39m parkingorders.[34mfindOne[39m {"conditions":{"state":{"$in":["1","2"]},"tel":"13700882704"},"options":{},"collectionName":"parkingorders"} [32m2ms[39m
+[2017-01-18 14:33:40.588] [INFO] cheese - Render view park/new [32m(5ms)[39m
+[2017-01-18 14:33:40.589] [INFO] cheese - Completed 200 [32m(9ms)[39m
+[2017-01-18 14:33:40.976] [INFO] cheese - 
+
+Started 2017-01-18T06:33:40.976Z POST /?signature=95f1ab4bfa8d2d420ffe0aef665f91862cd82990&timestamp=1484721089&nonce=1662032940&openid=oJme-szsGYjRcIMIFxvvt5XAI8qo 140.207.54.74
+[2017-01-18 14:33:40.982] [INFO] cheese - Completed 200 [32m(6ms)[39m
+[2017-01-18 14:34:02.363] [INFO] cheese - repair listening on port 3000
+[2017-01-18 14:34:02.365] [INFO] cheese - God bless love....
+[2017-01-18 14:34:02.365] [INFO] cheese - You can debug your app with http://webot-bz.ittun.com:3000
+[2017-01-18 14:34:02.366] [INFO] cheese - 
+[2017-01-18 14:37:24.022] [INFO] cheese - repair listening on port 3000
+[2017-01-18 14:37:24.025] [INFO] cheese - God bless love....
+[2017-01-18 14:37:24.025] [INFO] cheese - You can debug your app with http://webot-bz.ittun.com:3000
+[2017-01-18 14:37:24.025] [INFO] cheese - 
+[2017-01-18 14:37:30.148] [INFO] cheese - 
+
+Started 2017-01-18T06:37:30.148Z POST /?signature=2bea7428e2f4baafe94b8147d3d2da988f4b2cfe&timestamp=1484721318&nonce=1640287329&openid=oJme-szsGYjRcIMIFxvvt5XAI8qo 58.247.206.153
+[2017-01-18 14:37:30.175] [INFO] cheese - Completed 200 [32m(27ms)[39m
+[2017-01-18 14:37:30.178] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m7ms[39m
+[2017-01-18 14:37:30.343] [INFO] cheese - 
+
+Started 2017-01-18T06:37:30.343Z GET /park/create?code=011XwiXf0Rax9A179uXf0OAlXf0XwiXO&state=1 218.28.32.98
+[2017-01-18 14:37:30.365] [INFO] cheese - 
+
+Started 2017-01-18T06:37:30.365Z GET / 111.30.132.212
+[2017-01-18 14:37:30.367] [INFO] cheese - Completed 401 [32m(2ms)[39m
+[2017-01-18 14:37:30.546] [DEBUG] cheese - [35mMONGO[39m tokens.[34mupdate[39m {"conditions":{"openid":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"doc":{"$set":{"create_at":"1484721450540","scope":"snsapi_base","openid":"oJme-szsGYjRcIMIFxvvt5XAI8qo","refresh_token":"4wvt86SWZsbrqxiMGp99MMYBIpd6NycMYBRKjLM_5nNRKdzdAgEdK7cxKW72PyVyvshB83B4xHx8RmwLZ4xsD06azOxMWmGAtnH_lhxNjRY","expires_in":7200,"access_token":"rfW26MAcGezCpQQL3f6ax_XSsKd20tWHtOWTIlhn_Y_D9z-layysmKaPcGFKYqFYG-zvGGhSd0GV0VVgj57kRMrrBmFMxD2onM8YIw7Ghc0"}},"options":{"upsert":true},"collectionName":"tokens"} [32m1ms[39m
+[2017-01-18 14:37:30.548] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m1ms[39m
+[2017-01-18 14:37:30.550] [DEBUG] cheese - [35mMONGO[39m parkingorders.[34mfindOne[39m {"conditions":{"state":{"$in":["1","2"]},"tel":"13700882704"},"options":{},"collectionName":"parkingorders"} [32m0ms[39m
+[2017-01-18 14:37:30.561] [INFO] cheese - Render view park/new [32m(10ms)[39m
+[2017-01-18 14:37:30.563] [INFO] cheese - Completed 200 [32m(220ms)[39m
+[2017-01-18 14:37:32.124] [INFO] cheese - 
+
+Started 2017-01-18T06:37:32.124Z POST /park/create 171.15.132.111
+[2017-01-18 14:37:32.138] [DEBUG] cheese - [35mMONGO[39m parkingorders.[34mfindOne[39m {"conditions":{"_id":"587f0c4476c1e72f4a6686a4"},"options":{},"collectionName":"parkingorders"} [32m1ms[39m
+[2017-01-18 14:37:32.150] [INFO] cheese - Completed 302 [32m(26ms)[39m
+[2017-01-18 14:37:32.150] [DEBUG] cheese - [35mMONGO[39m parkings.[34mupdate[39m {"conditions":{"name":"新郑机场停车位"},"doc":{"$inc":{"num":1}},"options":{"multi":true},"collectionName":"parkings"} [32m2ms[39m
+[2017-01-18 14:37:32.292] [INFO] cheese - 
+
+Started 2017-01-18T06:37:32.292Z GET /park/create 218.28.32.98
+[2017-01-18 14:37:32.294] [DEBUG] cheese - [35mMONGO[39m parkingorders.[34mfindOne[39m {"conditions":{"state":{"$in":["1","2"]},"tel":"13700882704"},"options":{},"collectionName":"parkingorders"} [32m1ms[39m
+[2017-01-18 14:37:32.298] [DEBUG] cheese - [35mMONGO[39m cars.[34mfind[39m {"conditions":{"tel":"13700882704"},"options":{},"collectionName":"cars"} [32m1ms[39m
+[2017-01-18 14:37:32.300] [DEBUG] cheese - [35mMONGO[39m parkings.[34mfindOne[39m {"conditions":{},"options":{},"collectionName":"parkings"} [32m2ms[39m
+[2017-01-18 14:37:32.307] [INFO] cheese - Render view park/new [32m(6ms)[39m
+[2017-01-18 14:37:32.308] [INFO] cheese - Completed 200 [32m(16ms)[39m
+[2017-01-18 14:37:37.895] [INFO] cheese - 
+
+Started 2017-01-18T06:37:37.895Z POST /park/create 171.15.132.111
+[2017-01-18 14:37:37.920] [INFO] cheese - Completed 302 [32m(25ms)[39m
+[2017-01-18 14:37:37.922] [DEBUG] cheese - [35mMONGO[39m parkings.[34mupdate[39m {"conditions":{"name":"新郑机场停车位"},"doc":{"$inc":{"num":-1}},"options":{"multi":true},"collectionName":"parkings"} [32m18ms[39m
+[2017-01-18 14:37:38.056] [INFO] cheese - 
+
+Started 2017-01-18T06:37:38.056Z GET /park/create 218.28.32.98
+[2017-01-18 14:37:38.059] [DEBUG] cheese - [35mMONGO[39m parkingorders.[34mfindOne[39m {"conditions":{"state":{"$in":["1","2"]},"tel":"13700882704"},"options":{},"collectionName":"parkingorders"} [32m1ms[39m
+[2017-01-18 14:37:38.063] [INFO] cheese - Render view park/new [32m(2ms)[39m
+[2017-01-18 14:37:38.064] [INFO] cheese - Completed 200 [32m(8ms)[39m
+[2017-01-18 14:37:38.517] [INFO] cheese - 
+
+Started 2017-01-18T06:37:38.517Z POST /?signature=3055f5579921edadc8ec62c9b7aa91fc3a74ce8e&timestamp=1484721326&nonce=137754470&openid=oJme-szsGYjRcIMIFxvvt5XAI8qo 58.247.206.142
+[2017-01-18 14:37:38.523] [INFO] cheese - Completed 200 [32m(6ms)[39m
+[2017-01-18 14:37:38.524] [DEBUG] cheese - [35mMONGO[39m users.[34mfindOne[39m {"conditions":{"open_id":"oJme-szsGYjRcIMIFxvvt5XAI8qo"},"options":{},"collectionName":"users"} [32m1ms[39m
+[2017-01-18 14:37:49.231] [INFO] cheese - 
+
+Started 2017-01-18T06:37:49.231Z GET /park/587f0d311e4996064bab9f64 218.28.32.98
+[2017-01-18 14:37:49.234] [DEBUG] cheese - [35mMONGO[39m parkingorders.[34mfindOne[39m {"conditions":{"_id":"587f0d311e4996064bab9f64"},"options":{},"collectionName":"parkingorders"} [32m0ms[39m
+[2017-01-18 14:37:49.238] [INFO] cheese - Render view park/show [32m(2ms)[39m
+[2017-01-18 14:37:49.239] [INFO] cheese - Completed 200 [32m(8ms)[39m
+[2017-01-18 14:38:18.158] [INFO] cheese - 
+
+Started 2017-01-18T06:38:18.158Z GET /park/587f0d311e4996064bab9f64 218.28.32.98
+[2017-01-18 14:38:18.161] [DEBUG] cheese - [35mMONGO[39m parkingorders.[34mfindOne[39m {"conditions":{"_id":"587f0d311e4996064bab9f64"},"options":{},"collectionName":"parkingorders"} [32m0ms[39m
+[2017-01-18 14:38:18.164] [INFO] cheese - Render view park/show [32m(2ms)[39m
+[2017-01-18 14:38:18.164] [INFO] cheese - Completed 304 [32m(6ms)[39m

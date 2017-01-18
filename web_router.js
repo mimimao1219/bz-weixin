@@ -17,6 +17,7 @@ router.post('/api/v1/park/park_getOrder', cors(), park_api.park_getOrder);
 //baseAPI
 router.post('/api/v1/base/getQRCode', cors(), base_api.getQRCode);
 router.post('/api/v1/base/sendText', cors(), base_api.sendText);
+router.post('/api/v1/base/sendKh', cors(), base_api.sendKh);
 
 router.get('/sign', auth.sign);
 router.post('/login', auth.login);

@@ -129,7 +129,8 @@ webot.beforeReply(function load_user(info, next) {
 			if (user) {
         info.user = user;
         //更换售后
-        if (info.param.eventKey.length <21) {
+       // console.log(info.param.eventKey);
+        if (info.param.eventKey&&info.param.eventKey.length <21) {
         if (user.channel!=info.param.eventKey){
             user.channel_s=user.channel;
             user.channel=info.param.eventKey;
@@ -225,6 +226,8 @@ webot.set('unsubscribe', {
             console.log("delete"+info.uid);
           }
     });
+    //还需删掉car的信息
+
   }
 });
 
