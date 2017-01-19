@@ -32,9 +32,10 @@ exports.bzshow = function (req, res, next) {
 //获取车辆信息 
 exports.getCar = function (req, res, next) {
 	//通过车主获得信息
+	   var openid= req.session.user.open_id;
 		UserModel.findOne({ open_id: openid }, null, function (err, user) {		
 		//增加获取车辆信息接口
-		auth.getUserInfo(tel,function (err, mcars){
+		auth.getUserInfo(user.tel,function (err, mcars){
           if (mcars&&mcars.length>5){
 			  //获得用户信息
 			 JSON.parse(mcars).map(function (mycar) {
@@ -53,7 +54,7 @@ exports.getCar = function (req, res, next) {
 
 		  }else{
 			//通过司机获得信息
-			CarModel.find({tel:req.session.user.tel}, null,function (err, car) {
+			CarModel.find({tel:user.tel}, null,function (err, car) {
 				if (car&&car!=[]){
 					user.user_type='1';
 					user.kind='bz';
@@ -72,6 +73,7 @@ exports.getCar = function (req, res, next) {
 exports.list = function (req, res, next) {	
     
     var ep = EventProxy.create(['cars'], function (cars) {
+		console.log(cars);
 		if (cars) {
 			res.render('mycar/list', {
      		 cars: cars,

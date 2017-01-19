@@ -155,7 +155,7 @@ webot.set('kh', {
   handler: function(info) {
 
     UserModel.findOne({ open_id: info.uid }, null, function (err, user) {
-     if (user){
+     if (user&&user.channel){
         var infoo = { openid: info.uid,
                   kfid: user.channel,
                   text: info.text
