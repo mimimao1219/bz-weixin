@@ -55,7 +55,7 @@ exports.getCar = function (req, res, next) {
 		  }else{
 			//通过司机获得信息
 			CarModel.find({tel:user.tel}, null,function (err, car) {
-				if (car&&car!=[]){
+				if (car&&car.length>0){
 					user.user_type='1';
 					user.kind='bz';
 					req.session.user=user;

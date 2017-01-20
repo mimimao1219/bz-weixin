@@ -130,7 +130,7 @@ webot.beforeReply(function load_user(info, next) {
         info.user = user;
         //更换售后
        // console.log(info.param.eventKey);
-        if (info.param.eventKey&&info.param.eventKey.length <21) {
+        if (info.param.eventKey&&info.param.eventKey.length==11) {
         if (user.channel!=info.param.eventKey){
             user.channel_s=user.channel;
             user.channel=info.param.eventKey;
