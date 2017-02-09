@@ -21,7 +21,7 @@ exports.getQRCode = function (req, res, next) {
     var QueryStr = tools.myDecipheriv(req.body.QueryStr,config);
     var querystr=JSON.parse(QueryStr);
     var token= querystr.token;
-     if (token===config.bztoken&&querystr!=null&&querystr.id!=null){
+     if (token===config.bztoken&&querystr!==null&&querystr.id!==null){
          weixinApi.createLimitQRCode(querystr.id, function (err, result){
 
          var murl = weixinApi.showQRCodeURL(result.ticket);
@@ -39,7 +39,7 @@ exports.sendText = function (req, res, next) {
     var QueryStr = tools.myDecipheriv(req.body.QueryStr,config);
     var querystr=JSON.parse(QueryStr);
     var token= querystr.token;
-     if (token===config.bztoken&&querystr!=null&&querystr.openid!=null&&querystr.text!=null){
+     if (token===config.bztoken&&querystr!==null&&querystr.openid!==null&&querystr.text!==null){
          weixinApi.sendText(querystr.openid, querystr.text,function (err, result){
 
          var jurl = tools.myCipheriv(JSON.stringify(result),config);
@@ -55,7 +55,7 @@ exports.sendKh = function (req, res, next) {
     var QueryStr = tools.myDecipheriv(req.body.QueryStr,config);
     var querystr=JSON.parse(QueryStr);
     var token= querystr.token;
-     if (token===config.bztoken&&querystr!=null&&querystr.openid!=null&&querystr.message!=null){
+     if (token===config.bztoken&&querystr!==null&&querystr.openid!==null&&querystr.message!==null){
 
         switch(querystr.message.msgtype)
           {

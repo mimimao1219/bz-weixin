@@ -3,7 +3,15 @@ var moment = require('moment');
 var CryptoJS = require("crypto-js");
 //var TokenModel = require('../models').Token;
 var config       = require('../config');
-var fs      = require('fs');
+var redis       = require('./redis');
+// var fs      = require('fs');
+// var Redis = require('ioredis');
+// var redis = new Redis({
+//     port: config.redis_port,
+//     host: config.redis_host,
+//     db: config.redis_db,
+//     pass: config.redis_password,
+//   });
 
 moment.locale('zh-cn'); // 使用中文
 //微信页面授权获取用户openid
@@ -23,17 +31,19 @@ exports.oauthClient = OAuthClient;
 
 
 var WechatAPI = require('wechat-api');
-var WeixinApi = new WechatAPI(config.weixin.appId, config.weixin.appSecret);
-// var WeixinApi = new WechatAPI(config.weixin.appId, config.weixin.appSecret, function (callback) {
-//   // 传入一个获取全局token的方法
-//   fs.readFile('access_token.txt', 'utf8', function (err, txt) {
-//     if (err) {return callback(err);};
-//     callback(null, JSON.parse(txt));
-//   });
-// }, function (token, callback) {
-//   // 请将token存储到全局，跨进程、跨机器级别的全局，比如写到数据库、redis等
-//   fs.writeFile('access_token.txt', JSON.stringify(token), callback);
-// });
+//var WeixinApi = new WechatAPI(config.weixin.appId, config.weixin.appSecret);
+var WeixinApi = new WechatAPI(config.weixin.appId, config.weixin.appSecret, function (callback) {
+  // 传入一个获取全局token的方法
+	redis.get('access_token', function (err, result) {
+  	if (err) {return callback(err);};
+		// console.log(result);
+    callback(null, JSON.parse(result));
+  });
+	
+}, function (token, callback) {
+  // 请将token存储到全局，跨进程、跨机器级别的全局，比如写到数据库、redis等
+	redis.set('access_token', JSON.stringify(token),callback);
+});
 exports.weixinApi = WeixinApi;
 
 

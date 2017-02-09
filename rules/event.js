@@ -2,6 +2,35 @@
 module.exports = function(webot) {
 var config = require('../config');
 var UserModel = require('../models').User;
+var CarModel = require('../models').Car;
+
+//扫描进入
+webot.set('SCAN', {
+  pattern: function(info) {
+    return info.is('event') && info.param.event === 'SCAN';
+  },
+  handler: function(info) {
+      UserModel.findOne({ open_id: info.uid }, null, function (err, user) {
+			if (user) {
+        info.user = user;
+        //更换售后
+        //  console.log(info.param.eventKey);
+        if (info.param.eventKey&&info.param.eventKey.length==11) {
+        if (user.channel!=info.param.eventKey){
+            user.channel_s=user.channel;
+            user.channel=info.param.eventKey;
+            //需要写日志
+            user.save();
+        }
+      }
+
+      }
+		});
+    info.noReply = true;
+    return;
+   
+  }
+});
 
     //关注
 webot.set('subscribe', {
@@ -42,6 +71,15 @@ webot.set('unsubscribe', {
   handler: function(info) {
     //console.log(info.uid);
     UserModel.remove({ open_id: info.uid} ,function(err,result){
+          if(err){
+            console.log(err);
+          }else{
+            console.log("delete"+info.uid);
+          }
+    });
+
+    //还需删掉car的信息
+   CarModel.remove({ open_id: info.uid} ,function(err,result){
           if(err){
             console.log(err);
           }else{

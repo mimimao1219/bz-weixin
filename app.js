@@ -18,7 +18,7 @@ var webRouter = require('./web_router');
 var auth = require('./middlewares/auth');
 var errorPageMiddleware = require('./middlewares/error_page');
 var proxyMiddleware = require('./middlewares/proxy');
-//var RedisStore = require('connect-redis')(session);
+var RedisStore = require('connect-redis')(session);
 var _ = require('lodash');
 var csurf = require('csurf');
 var compress = require('compression');
@@ -33,6 +33,7 @@ var helmet = require('helmet');
 var bytes = require('bytes')
 var webot = require('weixin-robot');
 var UserModel = require('./models').User;
+var CarModel = require('./models').Car;
 var ParkingOrderModel = require('./models').ParkingOrder;
 var ParkingModel = require('./models').Parking;
 var sendtokf = require('./middlewares/auth').sendtokf;
@@ -87,13 +88,25 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '1mb' }));
 app.use(require('method-override')());
 app.use(require('cookie-parser')(config.session_secret));
 app.use(compress());
+// app.use(session({
+// 	secret: config.session_secret,
+// 	cookie: {
+// 		  maxAge: 1000 * 60 * 30,
+// 	},
+// 	resave: true,
+// 	saveUninitialized: true,
+// }));
+
 app.use(session({
-	secret: config.session_secret,
-	cookie: {
-		  maxAge: 1000 * 60 * 30,
-	},
-	resave: true,
-	saveUninitialized: true,
+  secret: config.session_secret,
+  store: new RedisStore({
+    port: config.redis_port,
+    host: config.redis_host,
+    db: config.redis_db,
+    pass: config.redis_password,
+  }),
+  resave: false,
+  saveUninitialized: false,
 }));
 
 
@@ -125,111 +138,12 @@ app.use('/', webRouter);
 //对发来的消息预处理
 webot.beforeReply(function load_user(info, next) {
   //console.log(info);
-  UserModel.findOne({ open_id: info.uid }, null, function (err, user) {
-			if (user) {
-        info.user = user;
-        //更换售后
-       // console.log(info.param.eventKey);
-        if (info.param.eventKey&&info.param.eventKey.length==11) {
-        if (user.channel!=info.param.eventKey){
-            user.channel_s=user.channel;
-            user.channel=info.param.eventKey;
-            //需要写日志
-            user.save();
-        }
-      }
-        next();
-      }
-		});
-    //console.log("我来也1"+info.param.eventKey);
+  
   next();
 });
+
 // load rules
-//require('./rules')(webot);
-
-//企业客服
-webot.set('kh', {
-  pattern: function(info) {
-    return info.is('text');
-  },
-  handler: function(info) {
-
-    UserModel.findOne({ open_id: info.uid }, null, function (err, user) {
-     if (user&&user.channel){
-        var infoo = { openid: info.uid,
-                  kfid: user.channel,
-                  text: info.text
-            }
-        sendtokf(infoo, function (err, result) {
-                // console.log(result);
-              });
-       }else{
-      //没有客服响应
-         var infoo = { openid: info.uid,
-                  kfid: "18217766546",
-                  text: info.text
-            }
-         sendtokf(infoo, function (err, result) {
-                // console.log(result);
-              });
-       } 
-      });
-   info.noReply = true;
-   return ;
-    
-  }
-});
-
-
-//关注
-webot.set('subscribe', {
-  pattern: function(info) {
-    return info.is('event') && info.param.event === 'subscribe';
-  },
-  handler: function(info) {
-      UserModel.findOne({ open_id: info.uid }, null, function (err, user) {
-			if (user) {
-        info.user = user;
-			} else {
-        var myUser = new UserModel();
-        var keys = info.param.eventKey;
-        var s = keys.indexOf("_");
-        myUser.open_id=info.uid;
-        myUser.channel=keys.substr(s+1);
-        myUser.channel_s=keys.substr(s+1);
-        myUser.channel_one=keys.substr(s+1);
-        myUser.create_at=info.createTime;
-        myUser.save();
-			}
-		});
-    //console.log(info.param.eventKey);
-    info.reply = {
-        title: '欢迎关注订阅奔驰微信服务号',
-        url: config.host+'/sign?openid='+info.uid,
-        picUrl: config.host+'/public/img/eclass.jpg',
-        description: '为了更好的服务您请绑定手机号',
-  }
-    return ;
-  }
-});
-//取消关注
-webot.set('unsubscribe', {
-  pattern: function(info) {
-    return info.is('event') && info.param.event === 'unsubscribe';
-  },
-  handler: function(info) {
-    //console.log(info.uid);
-    UserModel.remove({ open_id: info.uid} ,function(err,result){
-          if(err){
-            console.log(err);
-          }else{
-            console.log("delete"+info.uid);
-          }
-    });
-    //还需删掉car的信息
-
-  }
-});
+require('./rules')(webot);
 
 
 // 接管消息请求
@@ -260,7 +174,6 @@ if (!module.parent) {
 
 
 var moment = require('moment');
-
 
 //定时任务 ，每间隔一小时扫描一次
 //var WechatAPI = require('wechat-api');

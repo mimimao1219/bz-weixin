@@ -22,7 +22,7 @@ exports.park_getOrder = function (req, res, next) {
     var QueryStr = tools.myDecipheriv(req.body.QueryStr,config);
     var querystr=JSON.parse(QueryStr);
     var token= querystr.token;
-     if (token===config.bztoken&&querystr!=null&&querystr.id!=null){
+     if (token===config.bztoken&&querystr!==null&&querystr.id!==null){
      ParkingOrderModel.findOne({_id: querystr.id}, function (err, parkingOrder) {
      var morders =  _.pick(parkingOrder, ['_id','open_id', 'username', 'tel', 'plate_number', 'name',
          'reserve_at','state']);
@@ -61,7 +61,7 @@ exports.park_update = function (req, res, next) {
     var querystr=JSON.parse(QueryStr);
     var token= querystr.token;
     console.log(querystr);
-    if (token===config.bztoken&&querystr!=null&&querystr.id!=null&&querystr.state!=null&&querystr.name!=null){
+    if (token===config.bztoken&&querystr!==null&&querystr.id!==null&&querystr.state!==null&&querystr.name!==null){
          ParkingOrderModel.findOne({ _id: querystr.id }, function (err, parkingOrder) {
          parkingOrder.state=querystr.state;
          parkingOrder.update_name=querystr.name;
