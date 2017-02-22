@@ -10,12 +10,15 @@ var router = express.Router();
 //var createSignature = signature.getSignature(config.weixin);
 var park_api = require('./controllers/park_api');
 var base_api = require('./controllers/base_api');
+var multer  = require('multer');
+var upload = multer({ dest: config.upload.path });
 // routes
 router.post('/api/v1/park/park_list', cors(), park_api.park_list);   //api 需要支持跨域访问才行的。所以加上cors中间件了。
 router.post('/api/v1/park/park_update', cors(), park_api.park_update);
 router.post('/api/v1/park/park_getOrder', cors(), park_api.park_getOrder);
 //baseAPI
 router.post('/api/v1/base/getQRCode', cors(), base_api.getQRCode);
+router.post('/api/v1/base/uploadMedia', cors(),upload.single('file'), base_api.uploadMedia);
 router.post('/api/v1/base/sendText', cors(), base_api.sendText);
 router.post('/api/v1/base/sendKh', cors(), base_api.sendKh);
 

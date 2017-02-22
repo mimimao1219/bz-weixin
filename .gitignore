@@ -1,3 +1,4 @@
 #忽略gitignore文件  
 #.gitignore
 node_modules/
+upload/

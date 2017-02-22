@@ -10,46 +10,46 @@ var moment = require('moment');
 
 
 
-//console.log(moment().add(1, 'd').hour(26-24).format());
+// //console.log(moment().add(1, 'd').hour(26-24).format());
 
-//  var data1 = '{"token":"' + config.bztoken + '"}';
- var data1 = '{"token":"' + config.bztoken + '","id":"586f4f6c49985d878ed0d5c4"}';
-//var data1 = '{"token":"' + config.bztoken + '","id":"18900167332"}';
-// var data1 = '{"token":"' + config.bztoken + '","tel":"18900167332"}';
-    var queryStr = tools.myCipheriv(data1, config);
+// //  var data1 = '{"token":"' + config.bztoken + '"}';
+//  var data1 = '{"token":"' + config.bztoken + '","id":"586f4f6c49985d878ed0d5c4"}';
+// //var data1 = '{"token":"' + config.bztoken + '","id":"18900167332"}';
+// // var data1 = '{"token":"' + config.bztoken + '","tel":"18900167332"}';
+//     var queryStr = tools.myCipheriv(data1, config);
 
-    // var client = request.createClient('http://webot-bz.ittun.com/');
-    var client = request.createClient('http://webot-bz.ittun.com/');
-	 //var client = request.createClient('http://parking.wx.hnbenz.com/');
-    var data = {
-		"QueryStr": queryStr
-		};
-	console.log(data);
-	//client.post('userinfo', data, function (error, response, body) {
-	// client.post('api/v1/base/getQRCode', data, function (error, response, body) {
-    // client.post('api/v1/park/park_list', data, function (error, response, body) {
-	//client.post('api/v1/park/park_update', data, function (error, response, body) {
-    client.post('api/v1/park/park_getOrder', data, function (error, response, body) {
-      console.log(body);
-		if (!error && response.statusCode == 200) {
-			if (body.ResultData) {
-                console.log(tools.myDecipheriv(body.ResultData, config));
-			//	cb(null, tools.myDecipheriv(body.ResultData, config));
-			} else {
-				//cb(null, null);
-			}
-		} else {
-			//cb(null, null);
-		}
+//     // var client = request.createClient('http://webot-bz.ittun.com/');
+//     var client = request.createClient('http://webot-bz.ittun.com/');
+// 	 //var client = request.createClient('http://parking.wx.hnbenz.com/');
+//     var data = {
+// 		"QueryStr": queryStr
+// 		};
+// 	console.log(data);
+// 	//client.post('userinfo', data, function (error, response, body) {
+// 	// client.post('api/v1/base/getQRCode', data, function (error, response, body) {
+//     // client.post('api/v1/park/park_list', data, function (error, response, body) {
+// 	//client.post('api/v1/park/park_update', data, function (error, response, body) {
+//     client.post('api/v1/park/park_getOrder', data, function (error, response, body) {
+//       console.log(body);
+// 		if (!error && response.statusCode == 200) {
+// 			if (body.ResultData) {
+//                 console.log(tools.myDecipheriv(body.ResultData, config));
+// 			//	cb(null, tools.myDecipheriv(body.ResultData, config));
+// 			} else {
+// 				//cb(null, null);
+// 			}
+// 		} else {
+// 			//cb(null, null);
+// 		}
 
-	});
+// 	});
 
 //加密解密
 // var mm="奔驰信息abcdefghijk1234567890-=\][]";
 // var jmmm=tools.myCipheriv(mm,config);
-// console.log(jmmm);
-// var jm=tools.myDecipheriv(jmmm,config);
-// console.log(jm);
+//console.log(jmmm);
+var jm=tools.myDecipheriv("fLVOHTEF2rcAk3a91fAwMKIx8x8jcpTYLfw6iQG8cMb5sGnl+OOPrFRYnVaV7VPXKEGXzm/cPvpQre7SC06Z1bxUCIwQF0p/2qQmvytPjlPCs+C9AFpAfKFJqkUeqay0JI/npGNpeEy6zDRW2Wd5wP/81IAJUJkGe6laLfKgfyNGfd2PMUg8TjXtbA9hIRakvbcBstf+Q6gAh4ezU9osZhe+hlS3U55Uc6YFDBrjyaHjWzic9M/MPsWikkFyjJ8v",config);
+console.log(jm);
 
 //阿里大于短信发送
 	// topclient.execute( 'alibaba.aliqin.fc.sms.num.send' , {

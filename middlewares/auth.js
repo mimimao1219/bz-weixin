@@ -12,6 +12,7 @@ var TokenModel = require('../models').Token;
 var topclient        = require('../common/tools').topclient;
 var _            = require('lodash');
 var CarModel = require('../models').Car;
+//var formstream = require('formstream');
 /**
  * 检查是否绑定手机号。
  */
@@ -181,16 +182,20 @@ function sendtokf(info, cb) {
     
     var data1 = '{"token":"' + config.bztoken + '"}';
 	var ddate = _.merge(JSON.parse(data1),info);
+	console.log(ddate);
 	var queryStr = tools.myCipheriv(JSON.stringify(ddate), config);
     var client = request.createClient('http://kf.wx.hnbenz.com/');
 	var data = {
 		"QueryStr": queryStr
 		};
-    client.post('sendtokf', data, function (error, response, body) {
-		if (!error && response.statusCode == 200) {
-			if (body.ResultData) {
+    client.post('sendtokf2', data, function (error, response, body) {
 
-				cb(null, tools.myDecipheriv(body, config));
+		if (!error && response.statusCode == 200) {
+			console.log(body);
+			if (body.ResultData) {
+				
+				cb(null, tools.myDecipheriv(body.ResultData, config));
+				//cb(null, tools.myDecipheriv(body.ResultData, config));
 			} else {
 				cb(null, null);
 			}
@@ -200,6 +205,29 @@ function sendtokf(info, cb) {
 
 	});
 }
+
+function upmedia(info, cb) {
+    
+    var data1 = '{"token":"' + config.bztoken + '"}';
+	var ddate = _.merge(JSON.parse(data1),info);
+	//console.log(ddate);
+	var queryStr = tools.myCipheriv(JSON.stringify(ddate), config);
+
+    var client = request.createClient('http://kf.wx.hnbenz.com/');
+	var data = {
+		"QueryStr": queryStr
+		};
+    client.sendFile('upmedia', info.filepath,data, function (error, response, body) {	
+		if (!error && response.statusCode == 200) {			
+			var bodyy=JSON.parse(body);
+			cb(null, JSON.parse(tools.myDecipheriv(bodyy.ResultData, config)));
+		} else {
+			cb(null, null);
+		}
+
+	});
+}
+exports.upmedia = upmedia;
 exports.sendtokf = sendtokf;
 exports.getUserInfo = getUserInfo;
 

@@ -40,17 +40,6 @@ var sendtokf = require('./middlewares/auth').sendtokf;
 
 // 静态文件目录
 var staticDir = path.join(__dirname, 'public');
-// assets
-var assets = {};
-
-if (config.mini_assets) {
-  try {
-    assets = require('./assets.json');
-  } catch (e) {
-    logger.error('You must execute `make build` before start app when mini_assets is true.');
-    throw e;
-  }
-}
 
 var urlinfo = require('url').parse(config.host);
 config.hostname = urlinfo.hostname || config.host;
@@ -78,13 +67,13 @@ if (config.debug) {
 }
 app.use( express.static(staticDir));
 app.use('/public', express.static(staticDir));
-app.use('/agent', proxyMiddleware.proxy);
+//app.use('/agent', proxyMiddleware.proxy);
 
 // 通用的中间件
 app.use(require('response-time')());
 app.use(helmet.frameguard('sameorigin'));
-app.use(bodyParser.json({ limit: '1mb' }));
-app.use(bodyParser.urlencoded({ extended: true, limit: '1mb' }));
+app.use(bodyParser.json({ limit: '5mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }));
 app.use(require('method-override')());
 app.use(require('cookie-parser')(config.session_secret));
 app.use(compress());
@@ -114,9 +103,9 @@ app.use(session({
 // set static, dynamic helpers
 _.extend(app.locals, {
   config: config,
-  Loader: Loader,
-  assets: assets
+  Loader: Loader
 });
+
 
 app.use(errorPageMiddleware.errorPage);
 _.extend(app.locals, require('./common/render_helper'));

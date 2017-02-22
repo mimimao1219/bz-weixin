@@ -4,14 +4,7 @@ var CryptoJS = require("crypto-js");
 //var TokenModel = require('../models').Token;
 var config       = require('../config');
 var redis       = require('./redis');
-// var fs      = require('fs');
-// var Redis = require('ioredis');
-// var redis = new Redis({
-//     port: config.redis_port,
-//     host: config.redis_host,
-//     db: config.redis_db,
-//     pass: config.redis_password,
-//   });
+
 
 moment.locale('zh-cn'); // 使用中文
 //微信页面授权获取用户openid
@@ -36,7 +29,7 @@ var WeixinApi = new WechatAPI(config.weixin.appId, config.weixin.appSecret, func
   // 传入一个获取全局token的方法
 	redis.get('access_token', function (err, result) {
   	if (err) {return callback(err);};
-		// console.log(result);
+		 console.log(result);
     callback(null, JSON.parse(result));
   });
 	
@@ -44,6 +37,12 @@ var WeixinApi = new WechatAPI(config.weixin.appId, config.weixin.appSecret, func
   // 请将token存储到全局，跨进程、跨机器级别的全局，比如写到数据库、redis等
 	redis.set('access_token', JSON.stringify(token),callback);
 });
+
+// 扩展新api : sendTextBykh
+WechatAPI.patch("sendTextBykh", WeixinApi.endpoint + '/cgi-bin/message/custom/send');
+WechatAPI.patch("sendImageBykh", WeixinApi.endpoint + '/cgi-bin/message/custom/send');
+WechatAPI.patch("sendVoiceBykh", WeixinApi.endpoint + '/cgi-bin/message/custom/send');
+
 exports.weixinApi = WeixinApi;
 
 
