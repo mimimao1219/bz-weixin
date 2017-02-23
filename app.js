@@ -13,7 +13,6 @@ var express = require('express');
 var session = require('express-session');
 var schedule = require("node-schedule");
 require('./middlewares/mongoose_log'); // 打印 mongodb 查询日志
-//require('./models');
 var webRouter = require('./web_router');
 var auth = require('./middlewares/auth');
 var errorPageMiddleware = require('./middlewares/error_page');
@@ -31,12 +30,9 @@ var renderMiddleware = require('./middlewares/render');
 var logger = require('./common/logger');
 var helmet = require('helmet');
 var bytes = require('bytes')
-var webot = require('weixin-robot');
-var UserModel = require('./models').User;
-var CarModel = require('./models').Car;
 var ParkingOrderModel = require('./models').ParkingOrder;
 var ParkingModel = require('./models').Parking;
-var sendtokf = require('./middlewares/auth').sendtokf;
+var webchat = require('./controllers/webchat');
 
 // 静态文件目录
 var staticDir = path.join(__dirname, 'public');
@@ -122,21 +118,7 @@ app.use(busboy({
 
 app.use('/', webRouter);
 
-
-
-//对发来的消息预处理
-webot.beforeReply(function load_user(info, next) {
-  //console.log(info);
-  
-  next();
-});
-
-// load rules
-require('./rules')(webot);
-
-
-// 接管消息请求
-webot.watch(app, { token: config.weixin.appToken });
+app.use('/', webchat.chatAll);
 
 
 // error handler
