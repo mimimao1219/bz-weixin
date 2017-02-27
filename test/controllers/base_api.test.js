@@ -3,8 +3,7 @@ var should = require('should');
 var app = require('../../app');
 var config = require('../../config');
 var request = require('supertest')(app);
-// var mm = require('mm');
-// var support = require('../support/support');
+
 var _ = require('lodash');
 var tools = require('../../common/tools');
 
@@ -12,19 +11,12 @@ var tools = require('../../common/tools');
 
 describe('test/controllers/base_api.test.js', function () {
   var data1 = '{"token":"' + config.bztoken + '"}';
-  // var testUser;
-  // before(function (done) {
-  //   done = pedding(done, 2);
-  //   support.ready(done);
-  //   support.createUser(function (err, user) {
-  //     testUser = user;
-  //     done(err);
-  //   });
-  // });
+
 
   describe('post api/v1/base/getQRCode', function () {
     it('获得二维码', function (done) {
-      var infoo = { id: "18900167332"}       
+     // var infoo = { id: "18900167332"} 
+      var infoo = { action_info:{value: "18900167332",type:'staff'}}       
       var ddate = _.merge(JSON.parse(data1),infoo);
       var queryStr = tools.myCipheriv(JSON.stringify(ddate), config);
       request.post('/api/v1/base/getQRCode')
