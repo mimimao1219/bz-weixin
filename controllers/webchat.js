@@ -38,7 +38,7 @@ exports.chatAll = wechat(option, wechat.event(function (message, req, res, next)
           //info.user = user;
           //更换售后
           console.log(message.EventKey);
-          if (message.EventKey && message.EventKey.length == 11) {
+          if (message.EventKey) {
             if (user.channel != message.EventKey) {
               user.channel_s = user.channel;
               user.channel = message.EventKey;
@@ -106,37 +106,23 @@ exports.chatAll = wechat(option, wechat.event(function (message, req, res, next)
   UserModel.findOne({
     open_id: message.FromUserName
   }, null, function (err, user) {
-    if (user) {
-      var infoo = {
-          openid: message.FromUserName,
-          kfid: user.channel,
-          message: {
-            msgtype: "text",
-            content: {
-              content: message.Content
-            }
-          }
-        }
-        // console.log(infoo);
-      sendtokf(infoo, function (err, result) {
-        //console.log(result);
-      });
-    } else {
-      //没有客服响应
-      var infoo = {
-        openid: message.FromUserName,
-        kfid: "18217766546",
-        message: {
-          msgtype: "text",
-          content: {
-            content: message.Content
-          }
+    var kht = user.channel && user.channel.split('*') || [config.default_kh_type, config.default_kh];
+    var infoo = {
+      openid: message.FromUserName,
+      //kfid: user.channel,
+      channel: kht[1],
+      channel_type: kht[0],
+      message: {
+        msgtype: "text",
+        content: {
+          content: message.Content
         }
       }
-      sendtokf(infoo, function (err, result) {
-        // console.log(result);
-      });
     }
+    console.log(infoo);
+    sendtokf(infoo, function (err, result) {
+      //console.log(result);
+    });
   });
   res.reply('');
 
@@ -161,36 +147,23 @@ exports.chatAll = wechat(option, wechat.event(function (message, req, res, next)
         UserModel.findOne({
           open_id: message.FromUserName
         }, null, function (err, user) {
-          if (user) {
-            var infoo = {
-              openid: message.FromUserName,
-              kfid: user.channel,
-              message: {
-                msgtype: "image",
-                content: {
-                  media_id: result.media_id
-                }
+          var kht = user.channel && user.channel.split('*') || [config.default_kh_type, config.default_kh];
+          var infoo = {
+            openid: message.FromUserName,
+            //kfid: user.channel,
+            channel: kht[1],
+            channel_type: kht[0],
+            message: {
+              msgtype: "image",
+              content: {
+                media_id: result.media_id
               }
             }
-            sendtokf(infoo, function (err, result) {
-              console.log(result);
-            });
-          } else {
-            //没有客服响应
-            var infoo = {
-              openid: message.FromUserName,
-              kfid: "18217766546",
-              message: {
-                msgtype: "image",
-                content: {
-                  media_id: result.media_id
-                }
-              }
-            }
-            sendtokf(infoo, function (err, result) {
-              console.log(result);
-            });
           }
+          sendtokf(infoo, function (err, result) {
+            console.log(result);
+          });
+
         });
       });
     });
@@ -217,36 +190,23 @@ exports.chatAll = wechat(option, wechat.event(function (message, req, res, next)
         UserModel.findOne({
           open_id: message.FromUserName
         }, null, function (err, user) {
-          if (user) {
-            var infoo = {
-              openid: message.FromUserName,
-              kfid: user.channel,
-              message: {
-                msgtype: "voice",
-                content: {
-                  media_id: result.media_id
-                }
+          var kht = user.channel && user.channel.split('*') || [config.default_kh_type, config.default_kh];
+          var infoo = {
+            openid: message.FromUserName,
+            // kfid: user.channel,
+            channel: kht[1],
+            channel_type: kht[0],
+            message: {
+              msgtype: "voice",
+              content: {
+                media_id: result.media_id
               }
             }
-            sendtokf(infoo, function (err, result) {
-              console.log(result);
-            });
-          } else {
-            //没有客服响应
-            var infoo = {
-              openid: message.FromUserName,
-              kfid: "18217766546",
-              message: {
-                msgtype: "voice",
-                content: {
-                  media_id: result.media_id
-                }
-              }
-            }
-            sendtokf(infoo, function (err, result) {
-              console.log(result);
-            });
           }
+          sendtokf(infoo, function (err, result) {
+            console.log(result);
+          });
+
         });
       });
     });

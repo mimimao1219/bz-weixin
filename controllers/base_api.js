@@ -23,8 +23,10 @@ exports.getQRCode = function (req, res, next) {
     var QueryStr = tools.myDecipheriv(req.body.QueryStr,config);
     var querystr=JSON.parse(QueryStr);
     var token= querystr.token;
-     if (token===config.bztoken&&querystr!==null&&querystr.id!==null){
-         weixinApi.createLimitQRCode(querystr.id, function (err, result){
+     if (token===config.bztoken&&querystr!==null){
+       //querystr.id
+        var str = querystr.action_info.type+'*'+querystr.action_info.value;
+         weixinApi.createLimitQRCode(str, function (err, result){
 
          var murl = weixinApi.showQRCodeURL(result.ticket);
         //  console.log(murl);
@@ -84,6 +86,7 @@ exports.sendKh = function (req, res, next) {
     console.log(querystr);
     var token= querystr.token;
      if (token===config.bztoken&&querystr!==null&&querystr.openid!==null&&querystr.message!==null){
+      //根据openid获得channel，根据channel获得kf_account
         var mymessage = querystr.message.content;
         console.log(mymessage);      
         switch(querystr.message.msgtype)

@@ -73,6 +73,9 @@ var config = {
  	key:'4V38HpUfCXzVOadHG-z4soDPohpn',
  	iv:"U5HNcuKlY20uj0",
 
+  default_kh:'18217766546',
+  default_kh_type:'staff',
+
 
 
 
